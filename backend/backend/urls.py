@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
+# Define a simple view for the homepage.
+def home_view(request):
+    return HttpResponse("Welcome to the Diabetes Prediction API!")
 
 urlpatterns = [
+    path('', home_view, name='home'),
     path('admin/', admin.site.urls),
-    path('', include('api.urls')),  # 👈 This line includes your app's routes
+    path('predict/', include('api.urls')),  # Adjust based on your URL structure
 ]
+
