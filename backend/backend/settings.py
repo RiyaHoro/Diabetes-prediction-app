@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-&z$%ynwae7tuau-2_!uey)vhmd3()r#7%u#*oe6#=0w3xl@e7!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://diabetes-prediction-app-dm26.onrender.com']
 
 
 # Application definition
