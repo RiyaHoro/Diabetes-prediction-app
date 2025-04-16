@@ -9,8 +9,9 @@ const Result = () => {
   const location = useLocation();
   const result = location.state;
 
+
   if (!result) {
-    return <div className="text-center mt-10 text-xl">No result data found.</div>;
+    return <div className="mt-10 text-xl text-center">No result data found.</div>;
   }
 
   const probability = Number(result.probability) || 0;
@@ -40,9 +41,9 @@ const Result = () => {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h2 className="text-2xl font-bold text-center mb-4">Prediction Result</h2>
-      <div className="bg-white shadow-md rounded p-6">
+    <div className="max-w-xl p-6 mx-auto">
+      <h2 className="mb-4 text-2xl font-bold text-center">Prediction Result</h2>
+      <div className="p-6 bg-white rounded shadow-md">
         <p><strong>Prediction:</strong> {result.prediction}</p>
         <p><strong>Probability:</strong> {probability}%</p>
 
@@ -51,7 +52,7 @@ const Result = () => {
         </div>
 
         {result.prediction === 'positive' ? (
-          <div className="text-red-600 font-medium">
+          <div className="font-medium text-red-600">
             <p>You are at high risk for diabetes. Please consult a doctor, eat healthy, and exercise regularly.</p>
           </div>
         ) : (

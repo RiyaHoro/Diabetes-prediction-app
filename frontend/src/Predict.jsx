@@ -23,9 +23,9 @@ const Predict = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const requestData = { input_data: Object.values(formData) };
-
+  
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -34,17 +34,18 @@ const Predict = () => {
         },
         body: JSON.stringify(requestData),
       });
-
+  
       const result = await response.json();
       console.log(result);
-
+  
       // Redirect to result page and pass data
       navigate('/result', { state: result });
     } catch (error) {
       console.error("Error:", error);
+      alert("Prediction failed. Check console for details.");
     }
   };
-
+  
   return (
     <div className="flex items-center justify-center min-h-screen px-6 py-12 bg-gray-50">
       <div className="w-full max-w-lg p-8 bg-white shadow-lg rounded-xl">
