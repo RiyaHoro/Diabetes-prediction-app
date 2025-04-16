@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# backend/urls.py
 from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
@@ -25,7 +26,5 @@ def home_view(request):
 urlpatterns = [
     path('', home_view, name='home'),
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls'))  # prefix the API routes
+    path('api/', include('api.urls'))  # This line correctly includes your api/urls.py
 ]
-
-
