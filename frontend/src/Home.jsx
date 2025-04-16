@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import heroImage from './assets/background_image.jpg';
 import AboutUs from './AboutUs';
+import Insights from './Insights';
 
 const Home = () => {
   return (
@@ -32,6 +33,10 @@ const Home = () => {
       {/* About Us Section */}
       <section id="AboutUs">
         <AboutUs />
+      </section>
+
+      <section id="Insights">
+        <Insights />
       </section>
 
       {/* Footer Section */}

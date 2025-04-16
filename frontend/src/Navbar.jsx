@@ -38,9 +38,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/insights" className="text-white hover:text-blue-300">
+          <a href="#Insights" className="text-white hover:text-blue-300">
               Insights
-            </Link>
+            </a>
           </li>
         </ul>
       </div>
@@ -64,9 +64,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/insights" className="text-white hover:text-blue-300" onClick={() => setMenuOpen(false)}>
+          <a href="#Insights" className="text-white hover:text-blue-300" onClick={() => setMenuOpen(false)}>
               Insights
-            </Link>
+            </a>
           </li>
         </ul>
       )}

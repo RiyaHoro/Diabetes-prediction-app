@@ -72,16 +72,7 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="mt-12 text-center">
-          <p className="mb-4 text-lg text-gray-700">Want to know more? Let’s talk!</p>
-          <a
-            href="#contact"
-            className="px-6 py-3 text-lg font-semibold text-white transition duration-300 bg-blue-600 rounded-full hover:bg-blue-700"
-          >
-            Contact Us
-          </a>
-        </div>
+       
       </div>
     </section>
   );
