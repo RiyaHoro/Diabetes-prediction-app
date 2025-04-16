@@ -21,6 +21,7 @@ const Predict = () => {
   
   const API_URL = "https://diabetes-prediction-app-dm26.onrender.com/api/predict/";
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
   
