@@ -51,16 +51,17 @@ const Result = () => {
           <Doughnut data={chartData} options={chartOptions} />
         </div>
 
-        {result.prediction === 'positive' ? (
+        {result.prediction === 'Positive' ? (
           <div className="font-medium text-red-600">
             <p>You are at high risk for diabetes. Please consult a doctor, eat healthy, and exercise regularly.</p>
           </div>
         ) : (
-          <div className="text-green-600">
+          <div className="font-medium text-green-600">
             <p>Your risk is low. Keep up your healthy lifestyle!</p>
           </div>
         )}
       </div>
+      
     </div>
   );
 };
