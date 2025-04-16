@@ -71,15 +71,19 @@ const Predict = () => {
                   {key.replace(/([A-Z])/g, " $1").toUpperCase()}
                 </label>
                 <input
+              
                   type="number"
                   id={key}
                   name={key}
                   value={formData[key]}
                   onChange={handleChange}
+                  step="any" // 👈 important line added
                   className="p-3 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder={`Enter ${key}`}
                   required
                 />
+                
+              
               </div>
             ))}
           </div>
