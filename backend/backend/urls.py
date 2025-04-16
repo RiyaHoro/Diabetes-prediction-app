@@ -25,6 +25,6 @@ def home_view(request):
 urlpatterns = [
     path('', home_view, name='home'),
     path('admin/', admin.site.urls),
-    path('predict/', include('api.urls')),  # Adjust based on your URL structure
+    path('', include('api.urls'))  # this must point to api.urls  # Adjust based on your URL structure
 ]
 

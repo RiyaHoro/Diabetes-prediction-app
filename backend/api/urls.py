@@ -1,7 +1,6 @@
-# api/urls.py
 from django.urls import path
-from . import views
+from .views import predict
 
 urlpatterns = [
-    path('predict/', views.predict, name='predict'),
+    path("predict/", predict),  # make sure this is here
 ]
