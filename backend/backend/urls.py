@@ -25,6 +25,7 @@ def home_view(request):
 urlpatterns = [
     path('', home_view, name='home'),
     path('admin/', admin.site.urls),
-    path('', include('api.urls'))  # this must point to api.urls  # Adjust based on your URL structure
+    path('api/', include('api.urls'))  # prefix the API routes
 ]
+
 
