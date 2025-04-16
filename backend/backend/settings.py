@@ -134,3 +134,5 @@ CORS_ALLOW_METHODS = [
     'GET',
     'POST',
 ]
+CSRF_TRUSTED_ORIGINS = ['*']
+
