@@ -19,12 +19,12 @@ const Predict = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   
-  const API_URL = 'https://diabetes-prediction-app-dm26.onrender.com/predict/'
+  const API_URL = "https://diabetes-prediction-app-dm26.onrender.com/api/predict/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const requestData = { input_data: Object.values(formData) };
+    const requestData = { input_data: Object.values(formData).map(Number) };
   
     try {
       const response = await fetch(API_URL, {
