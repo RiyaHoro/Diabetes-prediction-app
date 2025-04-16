@@ -14,7 +14,7 @@ const Home = () => {
         style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className="max-w-3xl px-4 mx-auto text-center">
-          <h1 className="mb-4 text-5xl font-semibold text-white">
+          <h1 className="mb-4 text-6xl font-semibold text-white">
             Welcome to Diabeto
           </h1>
           <p className="mb-6 text-lg text-white">
@@ -30,7 +30,7 @@ const Home = () => {
       </section>
 
       {/* About Us Section */}
-      <section className="py-16 bg-gray-100">
+      <section className="py-16 bg-gray-100" id="AboutUs">
         <div className="container flex flex-col items-center justify-between max-w-6xl px-6 mx-auto md:flex-row">
           {/* Text Side */}
           <div className="mb-8 md:w-1/2 md:mb-0 md:pr-10">
