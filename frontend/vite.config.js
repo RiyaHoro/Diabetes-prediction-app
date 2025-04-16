@@ -6,7 +6,14 @@ import react from '@vitejs/plugin-react'
 export default {
   build: {
     rollupOptions: {
-      external: ['react', 'react-dom'] // Add any external libraries here that shouldn't be bundled
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor'; // Bundle all node_modules into a single vendor chunk
+          }
+        }
+      }
     }
   }
 }
+
