@@ -134,5 +134,11 @@ CORS_ALLOW_METHODS = [
     'GET',
     'POST',
 ]
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'https://localhost:8000',  # Add if you're using HTTPS locally
+    # Add your deployed domain if necessary
+    'https://diabetes-prediction-app-dm26.onrender.com',
+]
+
 
