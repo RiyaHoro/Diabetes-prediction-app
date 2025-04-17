@@ -21,17 +21,19 @@ const Result = () => {
   }
 
   const probability = Number(result.probability) || 0;
+  const isPositive = result.prediction === "positive";
 
   const chartData = {
     labels: ["Diabetes Risk", "Safe Zone"],
     datasets: [
       {
         label: "Diabetes Probability",
-        data:
-          result.prediction === "positive"
-            ? [probability, 100 - probability]
-            : [100 - probability, probability],
-        backgroundColor: ["#ef4444", "#10b981"],
+        data: isPositive
+          ? [probability, 100 - probability]
+          : [100 - probability, probability],
+        backgroundColor: isPositive
+          ? ["#ef4444", "#10b981"]
+          : ["#10b981", "#ef4444"], // flip colors based on prediction
         borderWidth: 1,
       },
     ],
@@ -105,7 +107,7 @@ const Result = () => {
           <div>
             <h3 className="font-semibold mb-2">Personalized Tips</h3>
             <ul className="list-disc pl-5 space-y-1 text-sm">
-              {result.prediction?.toLowerCase() === "positive" && (
+              {isPositive ? (
                 <>
                   <li>Consult a doctor for further medical advice.</li>
                   {result.glucose > 125 && (
@@ -116,9 +118,7 @@ const Result = () => {
                     <li>Annual checkups are highly recommended.</li>
                   )}
                 </>
-              )}
-
-              {result.prediction?.toLowerCase() === "negative" && (
+              ) : (
                 <>
                   <li>Your risk is low. Keep up the good work!</li>
                   {result.glucose <= 125 && (
