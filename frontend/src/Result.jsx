@@ -31,9 +31,9 @@ const Result = () => {
         data: isPositive
           ? [probability, 100 - probability]
           : [100 - probability, probability],
-        backgroundColor: isPositive
-          ? ["#ef4444", "#10b981"]
-          : ["#10b981", "#ef4444"], // flip colors based on prediction
+          backgroundColor: isPositive
+          ? ["#ef4444", "#10b981"] // red, green for positive
+          : ["#10b981", "#ef4444"]; // green, red for negative
         borderWidth: 1,
       },
     ],
