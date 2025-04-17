@@ -21,7 +21,7 @@ const Result = () => {
   }
 
   const probability = Number(result.probability) || 0;
-  const isPositive = result.prediction === "Positive";
+  const isPositive = result.prediction === "positive";
 
   const chartData = {
     labels: ["Diabetes Risk", "Safe Zone"],
