@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { Doughnut } from "react-chartjs-2";
-import { Bar } from "react-chartjs-2";
+import { Doughnut, Bar } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -15,7 +14,7 @@ const Result = () => {
 
   if (!result) {
     return (
-      <div className="mt-10 text-xl text-center text-white">
+      <div className="mt-10 text-xl text-center text-gray-800">
         No result data found.
       </div>
     );
@@ -32,19 +31,10 @@ const Result = () => {
           result.prediction === "positive"
             ? [probability, 100 - probability]
             : [100 - probability, probability],
-        backgroundColor: ["#EF4444", "#10B981"], // red and green
+        backgroundColor: ["#ef4444", "#10b981"],
         borderWidth: 1,
       },
     ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "bottom",
-      },
-    },
   };
 
   const generatePDF = () => {
@@ -58,34 +48,39 @@ const Result = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center px-4 py-10"
-    >
-      <div
-        className="max-w-xl w-full p-8 rounded-2xl shadow-2xl bg-white/60 backdrop-blur-md text-white"
-        ref={resultRef}
-      >
-        <h2 className="mb-6 text-4xl font-bold text-center text-white drop-shadow-lg">
-          Prediction Result
-        </h2>
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-pink-500 to-red-500 text-white text-center py-6 shadow">
+        <h1 className="text-3xl font-bold">Prediction Result</h1>
+        <p className="text-sm">Personalized Diabetes Risk Assessment</p>
+      </header>
 
-        <div className="space-y-6">
-          <p className="text-lg font-semibold">
-            <strong>Prediction:</strong> {result.prediction}
+      {/* Main Content */}
+      <main
+        ref={resultRef}
+        className="flex flex-col lg:flex-row justify-center items-start p-6 gap-10 max-w-6xl mx-auto"
+      >
+        {/* Left: Chart */}
+        <div className="w-full lg:w-1/2 p-4 bg-white border rounded-lg shadow">
+          <Doughnut data={chartData} />
+        </div>
+
+        {/* Right: Result Details */}
+        <div className="w-full lg:w-1/2 p-6 bg-white border rounded-lg shadow space-y-4 text-gray-800">
+          <p>
+            <strong>Prediction:</strong>{" "}
+            <span className="capitalize font-semibold text-lg">
+              {result.prediction}
+            </span>
           </p>
-          <p className="text-lg font-semibold">
+          <p>
             <strong>Probability:</strong> {probability}%
           </p>
 
-          <div className="my-6">
-            <Doughnut data={chartData} options={chartOptions} />
-          </div>
-
+          {/* Feature Importance */}
           {result.feature_importance && (
             <div>
-              <h3 className="mb-3 text-xl font-semibold text-white drop-shadow-lg">
-                Feature Impact
-              </h3>
+              <h3 className="font-semibold mb-2">Feature Impact</h3>
               <Bar
                 data={{
                   labels: Object.keys(result.feature_importance),
@@ -93,54 +88,47 @@ const Result = () => {
                     {
                       label: "Relative Importance",
                       data: Object.values(result.feature_importance),
-                      backgroundColor: "#93C5FD",
+                      backgroundColor: "#60a5fa",
                     },
                   ],
                 }}
                 options={{
                   indexAxis: "y",
-                  plugins: {
-                    legend: { display: false },
-                  },
-                  scales: {
-                    x: { beginAtZero: true, max: 1 },
-                  },
+                  plugins: { legend: { display: false } },
+                  scales: { x: { beginAtZero: true, max: 1 } },
                 }}
               />
             </div>
           )}
 
+          {/* Tips Section */}
           <div>
-            <h3 className="mb-3 text-xl font-semibold text-white drop-shadow-lg">
-              Personalized Tips
-            </h3>
-            <ul className="pl-5 list-disc text-white/90">
+            <h3 className="font-semibold mb-2">Personalized Tips</h3>
+            <ul className="list-disc pl-5 space-y-1 text-sm">
               {result.prediction?.toLowerCase() === "positive" && (
                 <>
-                  <li>Consult a doctor for further tests and guidance.</li>
+                  <li>Consult a doctor for further medical advice.</li>
                   {result.glucose > 125 && (
-                    <li>Reduce sugar intake and monitor glucose levels regularly.</li>
+                    <li>Monitor and reduce sugar intake.</li>
                   )}
-                  {result.bmi > 30 && (
-                    <li>Consider a balanced diet and regular exercise to reduce BMI.</li>
-                  )}
+                  {result.bmi > 30 && <li>Work on reducing your BMI.</li>}
                   {result.age > 45 && (
-                    <li>Annual checkups are crucial to manage diabetes risk.</li>
+                    <li>Annual checkups are highly recommended.</li>
                   )}
                 </>
               )}
 
               {result.prediction?.toLowerCase() === "negative" && (
                 <>
-                  <li>Your risk is low. Keep up your healthy lifestyle!</li>
+                  <li>Your risk is low. Keep up the good work!</li>
                   {result.glucose <= 125 && (
-                    <li>Maintain a balanced diet to keep glucose levels healthy.</li>
+                    <li>Maintain healthy glucose levels.</li>
                   )}
                   {result.bmi <= 30 && (
-                    <li>Continue with regular physical activity to maintain a healthy weight.</li>
+                    <li>Stay active to maintain a healthy weight.</li>
                   )}
                   {result.age <= 45 && (
-                    <li>Keep up with your routine health checkups.</li>
+                    <li>Regular checkups will help stay ahead.</li>
                   )}
                 </>
               )}
@@ -149,23 +137,23 @@ const Result = () => {
 
           <button
             onClick={generatePDF}
-            className="w-full py-3 mt-6 font-semibold text-white bg-purple-700 rounded-lg hover:bg-purple-800 transition-all duration-300"
+            className="w-full py-2 mt-4 font-medium border border-black rounded-full hover:bg-black hover:text-white transition"
           >
             Download Report (PDF)
           </button>
 
-          <p className="text-sm text-white/70 mt-4">
+          <p className="text-xs text-gray-500 text-center mt-4">
             Generated on: {new Date().toLocaleString()}
           </p>
 
           <Link
             to="/predict"
-            className="block mt-4 text-blue-200 hover:underline transition-all duration-300"
+            className="block text-center text-sm text-blue-600 hover:underline mt-2"
           >
             ← Try again with different values
           </Link>
         </div>
-      </div>
+      </main>
     </div>
   );
 };
