@@ -21,7 +21,7 @@ const Result = () => {
   }
 
   const probability = Number(result.probability) || 0;
-  const isPositive = result.prediction === "positive";
+  const isPositive = result.prediction === "Positive";
 
   const chartData = {
     labels: ["Diabetes Risk", "Safe Zone"],
@@ -31,13 +31,14 @@ const Result = () => {
         data: isPositive
           ? [probability, 100 - probability]
           : [100 - probability, probability],
-          backgroundColor: isPositive
+        backgroundColor: isPositive
           ? ["#ef4444", "#10b981"] // red, green for positive
-          : ["#10b981", "#ef4444"]; // green, red for negative
+          : ["#10b981", "#ef4444"], // green, red for negative
         borderWidth: 1,
       },
     ],
   };
+  
 
   const generatePDF = () => {
     const input = resultRef.current;
