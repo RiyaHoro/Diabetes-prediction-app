@@ -59,24 +59,21 @@ const Result = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 py-10"
-      style={{
-        backgroundImage: "url('/healthy_food.jpg')", // use your own image from /public
-      }}
+      className="min-h-screen bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center px-4 py-10"
     >
       <div
-        className="max-w-xl w-full p-6 rounded-2xl shadow-xl backdrop-blur-md bg-white/20 text-white"
+        className="max-w-xl w-full p-8 rounded-2xl shadow-2xl bg-white/60 backdrop-blur-md text-white"
         ref={resultRef}
       >
-        <h2 className="mb-4 text-3xl font-bold text-center text-white">
+        <h2 className="mb-6 text-4xl font-bold text-center text-white drop-shadow-lg">
           Prediction Result
         </h2>
 
-        <div className="space-y-4">
-          <p>
+        <div className="space-y-6">
+          <p className="text-lg font-semibold">
             <strong>Prediction:</strong> {result.prediction}
           </p>
-          <p>
+          <p className="text-lg font-semibold">
             <strong>Probability:</strong> {probability}%
           </p>
 
@@ -86,7 +83,7 @@ const Result = () => {
 
           {result.feature_importance && (
             <div>
-              <h3 className="mb-2 text-lg font-semibold text-white">
+              <h3 className="mb-3 text-xl font-semibold text-white drop-shadow-lg">
                 Feature Impact
               </h3>
               <Bar
@@ -114,32 +111,21 @@ const Result = () => {
           )}
 
           <div>
-            <h3 className="mb-2 text-lg font-semibold text-white">
+            <h3 className="mb-3 text-xl font-semibold text-white drop-shadow-lg">
               Personalized Tips
             </h3>
             <ul className="pl-5 list-disc text-white/90">
               {result.prediction?.toLowerCase() === "positive" && (
                 <>
-                  <li>
-                    Consult a doctor for further tests and guidance on managing
-                    diabetes risk.
-                  </li>
+                  <li>Consult a doctor for further tests and guidance.</li>
                   {result.glucose > 125 && (
-                    <li>
-                      Reduce your sugar intake and monitor your glucose levels
-                      regularly.
-                    </li>
+                    <li>Reduce sugar intake and monitor glucose levels regularly.</li>
                   )}
                   {result.bmi > 30 && (
-                    <li>
-                      Try a balanced diet and regular exercise to reduce BMI.
-                    </li>
+                    <li>Consider a balanced diet and regular exercise to reduce BMI.</li>
                   )}
                   {result.age > 45 && (
-                    <li>
-                      Annual checkups are crucial as age increases diabetes
-                      risk.
-                    </li>
+                    <li>Annual checkups are crucial to manage diabetes risk.</li>
                   )}
                 </>
               )}
@@ -148,16 +134,10 @@ const Result = () => {
                 <>
                   <li>Your risk is low. Keep up your healthy lifestyle!</li>
                   {result.glucose <= 125 && (
-                    <li>
-                      Maintain a balanced diet to keep your glucose levels
-                      within the healthy range.
-                    </li>
+                    <li>Maintain a balanced diet to keep glucose levels healthy.</li>
                   )}
                   {result.bmi <= 30 && (
-                    <li>
-                      Continue with regular physical activity to maintain a
-                      healthy weight.
-                    </li>
+                    <li>Continue with regular physical activity to maintain a healthy weight.</li>
                   )}
                   {result.age <= 45 && (
                     <li>Keep up with your routine health checkups.</li>
@@ -169,7 +149,7 @@ const Result = () => {
 
           <button
             onClick={generatePDF}
-            className="w-full py-2 mt-4 font-medium text-white bg-purple-600 rounded hover:bg-purple-700"
+            className="w-full py-3 mt-6 font-semibold text-white bg-purple-700 rounded-lg hover:bg-purple-800 transition-all duration-300"
           >
             Download Report (PDF)
           </button>
@@ -180,7 +160,7 @@ const Result = () => {
 
           <Link
             to="/predict"
-            className="block mt-4 text-blue-200 hover:underline"
+            className="block mt-4 text-blue-200 hover:underline transition-all duration-300"
           >
             ← Try again with different values
           </Link>
@@ -191,4 +171,3 @@ const Result = () => {
 };
 
 export default Result;
-
