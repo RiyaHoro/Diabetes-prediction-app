@@ -1,4 +1,4 @@
-import React,{ useState }  from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 const Predict = () => {
@@ -16,6 +16,7 @@ const Predict = () => {
   });
 
   const handleChange = (e) => {
+    // Update form data with the input value
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -47,8 +48,16 @@ const Predict = () => {
     }
   };
 
+  // Helper function to format labels
+  const formatLabel = (key) => {
+    return key
+      .replace(/([A-Z])/g, " $1") // Add space before capital letters
+      .replace(/_/g, " ") // Replace underscores with spaces
+      .replace(/^./, (str) => str.toUpperCase()); // Capitalize the first letter
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen px-6 py-12 bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen px-6 py-12 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-[length:200%_200%] animate-clouds">
       <div className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-xl">
         <Link
           to="/"
@@ -68,22 +77,19 @@ const Predict = () => {
                   htmlFor={key}
                   className="text-sm font-medium text-gray-700"
                 >
-                  {key.replace(/([A-Z])/g, " $1").toUpperCase()}
+                  {/* Format the key for the label */}
+                  {formatLabel(key)}
                 </label>
                 <input
-              
-                  type="number"
+                  type="text" // Change input type to text to accept both float and number
                   id={key}
                   name={key}
                   value={formData[key]}
                   onChange={handleChange}
-                  step="any" // 👈 important line added
                   className="p-3 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   placeholder={`Enter ${key}`}
                   required
                 />
-                
-              
               </div>
             ))}
           </div>

@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import Navbar from './Navbar';
 import heroImage from './assets/background_image.jpg';
 import AboutUs from './AboutUs';
 import Insights from './Insights';
+import Predict from './Predict';
 
 const Home = () => {
   return (
@@ -21,12 +23,12 @@ const Home = () => {
           <p className="mb-6 text-lg text-white">
             Get personalized diabetes risk predictions based on your health data.
           </p>
-          <a
-            href="#prediction"
-            className="px-6 py-3 text-lg font-semibold text-gray-800 transition duration-300 ease-in-out bg-yellow-400 rounded-full hover:bg-yellow-500"
-          >
-            Start Prediction
-          </a>
+          
+            <Link to="/Predict" className="px-6 py-3 text-lg font-semibold text-gray-800 
+            transition duration-300 ease-in-out bg-yellow-400 rounded-full hover:bg-yellow-500">
+                    Start Prediction
+            </Link>
+            
         </div>
       </section>
 

@@ -21,7 +21,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-12 text-lg font-bold">
+        <ul className="hidden md:flex space-x-12 text-lg font-medium">
           <li>
             <Link to="/" className="text-white hover:text-blue-300">
               Home
@@ -38,9 +38,9 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-          <a href="#Insights" className="text-white hover:text-blue-300">
+            <Link to="/insights" className="text-white hover:text-blue-300">
               Insights
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
