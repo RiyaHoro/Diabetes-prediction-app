@@ -54,12 +54,26 @@ const Result = () => {
       {
         label: "Diabetes Probability",
         data: [riskProb, 100 - riskProb],
-        backgroundColor:
-          riskProb > 50 ? ["red", "#22c55e"] : ["#22c55e", "red"],
-
+        backgroundColor: ["red", "#22c55e"], // Red for Risk, Green for Safe
         borderWidth: 1,
       },
     ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "bottom", // or "top"
+        labels: {
+          color: "#000", // sets label text color
+          font: {
+            size: 14,
+            weight: "bold",
+          },
+        },
+      },
+    },
   };
 
   const generatePDF = () => {
@@ -74,7 +88,7 @@ const Result = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <header className="bg-gradient-to-r from-pink-500 to-red-500 text-white text-center py-6 shadow">
+      <header className="w-full bg-gradient-to-r from-pink-500 to-red-500 text-white text-center py-6 shadow">
         <h1 className="text-3xl font-bold">Prediction Result</h1>
         <p className="text-sm">Personalized Diabetes Risk Assessment</p>
       </header>
@@ -107,44 +121,27 @@ const Result = () => {
           {result.feature_importance &&
             Object.keys(result.feature_importance).length > 0 && (
               <div className="h-[300px]">
-                <h3 className="font-semibold mb-2">Feature Impact</h3>
+  <h3 className="font-semibold mb-2">Feature Impact</h3>
 
-                <Bar
-                  data={{
-                    labels: Object.keys(result.feature_importance),
-                    datasets: [
-                      {
-                        label: "Relative Importance",
-                        data: Object.values(result.feature_importance),
-                        backgroundColor: "#60a5fa",
-                      },
-                    ],
-                  }}
-                  options={{
-                    indexAxis: "y",
-                    plugins: { legend: { display: false } },
-                    scales: { x: { beginAtZero: true } },
-                  }}
-                />
+  <Bar
+    data={{
+      labels: Object.keys(featureData),
+      datasets: [
+        {
+          label: "Relative Importance",
+          data: Object.values(featureData),
+          backgroundColor: "#60a5fa",
+        },
+      ],
+    }}
+    options={{
+      indexAxis: "y",
+      plugins: { legend: { display: false } },
+      scales: { x: { beginAtZero: true } },
+    }}
+  />
+</div>
 
-                <Bar
-                  data={{
-                    labels: ["glucose", "bmi", "age"],
-                    datasets: [
-                      {
-                        label: "Relative Importance",
-                        data: [0.3, 0.5, 0.2],
-                        backgroundColor: "#60a5fa",
-                      },
-                    ],
-                  }}
-                  options={{
-                    indexAxis: "y",
-                    plugins: { legend: { display: false } },
-                    scales: { x: { beginAtZero: true } },
-                  }}
-                />
-              </div>
             )}
 
           {/* Tips */}
@@ -187,6 +184,16 @@ const Result = () => {
           </Link>
         </div>
       </main>
+      <footer className="h-32 bg-gray-400 text-center text-sm text-black-600 py-4 mt-10 border-t">
+        <p>
+          🔍 This prediction is not a medical diagnosis. For accurate health
+          assessment, consult a healthcare professional.
+        </p>
+        <p className="mt-2">
+          📅 Report generated on {new Date().toLocaleDateString()}
+        </p>
+        <p className="mt-2">© 2025 Diabetes Prediction App</p>
+      </footer>
     </div>
   );
 };
