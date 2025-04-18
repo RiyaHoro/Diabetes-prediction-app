@@ -57,7 +57,7 @@ const Predict = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-6 py-12 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-[length:200%_200%] animate-clouds">
+    <div className="flex items-center justify-center min-h-screen px-6 py-12 bg-gradient-to-r from-blue-500 via-purple-300 to-pink-200 bg-[length:200%_200%] animate-clouds">
       <div className="w-full max-w-2xl p-8 bg-white shadow-lg rounded-xl">
         <Link
           to="/"
