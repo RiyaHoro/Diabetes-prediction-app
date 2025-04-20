@@ -21,7 +21,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-12 text-lg font-medium">
+        <ul className="hidden md:flex items-center justify-center space-x-12 text-lg font-normal">
           <li>
             <Link to="/" className="text-white hover:text-blue-300">
               Home
@@ -38,16 +38,16 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/insights" className="text-white hover:text-blue-300">
+          <a href="#Insights" className="text-white hover:text-blue-300" >
               Insights
-            </Link>
+            </a>
           </li>
         </ul>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <ul className="md:hidden flex flex-col items-start mt-4 space-y-4 text-lg font-bold pl-4">
+        <ul className="md:hidden flex flex-col items-start mt-4 space-y-4 text-lg font-normal pl-4">
           <li>
             <Link to="/" className="text-white hover:text-blue-300" onClick={() => setMenuOpen(false)}>
               Home
