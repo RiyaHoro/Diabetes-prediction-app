@@ -24,23 +24,25 @@ ChartJS.register(
 
 const Result = () => {
   const location = useLocation();
-  const result = location.state;
+  const result = location.state; // Get result data from location state
   const resultRef = useRef();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (result) {
-      console.log("Result data:", result); // Debug
+      console.log("Result data:", result); // Debugging log
       setLoading(false);
     }
   }, [result]);
 
+  // Loading state check
   if (loading) {
     return (
       <div className="mt-10 text-xl text-center text-gray-800">Loading...</div>
     );
   }
 
+  // If result is not passed, show error message
   if (!result) {
     return (
       <div className="mt-10 text-xl text-center text-gray-800">
@@ -49,20 +51,21 @@ const Result = () => {
     );
   }
 
+  // Process prediction and data
   const isPositive = result.prediction?.toLowerCase().trim() === "positive";
   const probability = Number(result.probability) || 0;
   const riskProb = probability * 100;
 
   const { glucose, bmi, age } = result;
 
-  // Doughnut chart
+  // Doughnut chart data
   const chartData = {
     labels: ["Diabetes Risk", "Safe Zone"],
     datasets: [
       {
         label: "Diabetes Probability",
         data: [riskProb, 100 - riskProb],
-        backgroundColor: ["#FF6347", "#32CD32"], // Colors that pop
+        backgroundColor: ["#FF6347", "#32CD32"], // Colors
         borderWidth: 1,
       },
     ],
@@ -84,7 +87,7 @@ const Result = () => {
     },
   };
 
-  // Input features chart
+  // Input features chart data
   const inputFeatures = {
     Pregnancies: Number(result.pregnancies) || 0,
     Glucose: Number(result.glucose) || 0,
