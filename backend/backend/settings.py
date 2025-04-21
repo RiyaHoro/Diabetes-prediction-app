@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'diabetes_db',
         'USER': 'myuser',
-        'PASSWORD': 'mypassword',
+        'PASSWORD': 'newpassword',
         'HOST': 'localhost',
         'PORT': '5432',
     }
