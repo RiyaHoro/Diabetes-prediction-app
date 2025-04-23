@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from .models import PatientData  # Add this at the top
 import joblib
 import pandas as pd
 import os
@@ -12,16 +13,14 @@ if not os.path.exists(MODEL_PATH):
 
 model = joblib.load(MODEL_PATH)
 
+
+
 @csrf_exempt
 def predict(request):
     if request.method == 'POST':
         try:
-            print("Raw request body:", request.body)
-
             data = json.loads(request.body)
             input_data = data.get("input_data")
-
-            print("Parsed input_data:", input_data)
 
             if not input_data or len(input_data) != 8:
                 return JsonResponse({"error": "Invalid input, expected 8 features"}, status=400)
@@ -35,31 +34,41 @@ def predict(request):
             pred = model.predict(df)[0]
             prob = model.predict_proba(df)[0][1]
 
+            # Save data to database
+            patient = PatientData(
+                pregnancies=input_data[0],
+                glucose=input_data[1],
+                blood_pressure=input_data[2],
+                insulin=input_data[4],
+                bmi=input_data[5],
+                age=input_data[7],
+                outcome=pred,
+                DiabetesPedigreefunction=input_data[6]
+            )
+            patient.save()
+
             importance = {}
             if hasattr(model, 'coef_'):
                 importance = dict(zip(feature_names, model.coef_[0]))
             elif hasattr(model, 'feature_importances_'):
                 importance = dict(zip(feature_names, model.feature_importances_))
 
-            # Add lowercase input values to response
-            input_features = {
-                feature.lower(): value
-                for feature, value in zip(feature_names, input_data)
-            }
-            print("Input features to return:", input_features)
-
             response = {
                 "prediction": "Positive" if pred == 1 else "Negative",
                 "probability": round(prob, 3),
                 "feature_importance": importance,
-                **input_features
+                "pregnancies": input_data[0],
+                "glucose": input_data[1],
+                "blood_pressure": input_data[2],
+                "insulin": input_data[4],
+                "bmi": input_data[5],
+                "age": input_data[7],
+                "DiabetesPedigreefunction": input_data[6]
             }
 
-            print("Full response:", response)
             return JsonResponse(response)
 
         except Exception as e:
-            print("Error:", str(e))
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
