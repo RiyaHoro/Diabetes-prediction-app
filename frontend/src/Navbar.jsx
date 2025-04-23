@@ -5,7 +5,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="p-4 bg-[#f442a6] shadow-md">
+    <nav className="p-4 bg-[#f442a6] shadow-md fixed w-full h-16 z-50">
       <div className="flex items-center justify-between max-w-6xl mx-auto">
         {/* Logo */}
         <h1 className="text-2xl font-bold text-white">Diabeto</h1>
@@ -23,9 +23,9 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center justify-center space-x-12 text-lg font-normal">
           <li>
-            <Link to="/" className="text-white hover:text-blue-300">
+          <a href="#Home" className="text-white hover:text-blue-300">
               Home
-            </Link>
+            </a>
           </li>
           <li>
             <a href="#AboutUs" className="text-white hover:text-blue-300">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import Navbar from './Navbar';
-import heroImage from './assets/background_image.jpg';
+import heroImage from './assets/background_image.png';
 import AboutUs from './AboutUs';
 import Insights from './Insights';
 import Predict from './Predict';
@@ -12,12 +12,12 @@ const Home = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section
-        className="flex items-center justify-center min-h-screen bg-blue-500 bg-center bg-cover"
+      <section id='Home'
+        className="flex items-center justify-center min-h-screen bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        <div className="max-w-3xl px-4 mx-auto text-center">
-          <h1 className="mb-4 text-6xl font-semibold text-white">
+        <div className="pt-16 max-w-3xl px-4 mx-auto text-center animate-slide-up ">
+          <h1 className="mb-4 text-6xl font-semibold text-white ">
             Welcome to Diabeto
           </h1>
           <p className="mb-6 text-lg text-white">
@@ -36,6 +36,7 @@ const Home = () => {
       <section id="AboutUs">
         <AboutUs />
       </section>
+      
 
       <section id="Insights">
         <Insights />

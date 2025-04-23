@@ -161,9 +161,9 @@ const Result = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-pink-400 to-red-400 flex flex-col">
-      <header className="text-white text-center py-8">
-        <h1 className="text-4xl font-bold">Prediction Result</h1>
+    <div className="min-h-screen bg-gradient-to-r from-pink-300 to-red-300 flex flex-col">
+      <header className="text-white text-center py-8 shadow-md">
+        <h1 className="text-4xl font-bold ">Prediction Result</h1>
         <p className="text-lg mt-2">Personalized Diabetes Risk Assessment</p>
       </header>
 

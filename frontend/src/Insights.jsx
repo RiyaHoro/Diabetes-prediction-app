@@ -32,11 +32,11 @@ const Insights = () => {
   const modelAccuracy = 92; // Replace with dynamic value if needed
 
   return (
-    <section className="py-16 bg-gradient-to-r from-blue-50 to-blue-100" id="Insights">
+    <section className="py-16 bg-[#d7aef3]" id="Insights">
       <div className="container px-6 mx-auto max-w-7xl md:px-12">
         {/* Title */}
         <div className="mb-12 text-center">
-          <h2 className="text-4xl font-semibold text-blue-600">
+          <h2 className="text-4xl font-semibold text-blue-800">
             Diabetes Insights & Model Accuracy
           </h2>
           <p className="mt-4 text-xl text-gray-700">
