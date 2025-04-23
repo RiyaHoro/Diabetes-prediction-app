@@ -87,7 +87,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    'default': dj_database_url.parse(
+        'postgresql://postgre_db_1aam_user:59p5gBLhfJpypR74R7osCj5ZskiuUInm@dpg-d03hb6je5dus73aa1beg-a.oregon-postgres.render.com/postgre_db_1aam'
+    )
 }
 
 
