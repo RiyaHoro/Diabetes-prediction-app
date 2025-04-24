@@ -43,7 +43,7 @@ const Home = () => {
       </section>
 
       {/* Footer Section */}
-      <footer className="py-4 text-center text-white bg-blue-500">
+      <footer className="py-4 text-center text-white bg-[#f442a6]">
         <p>&copy; 2025 Diabeto. All Rights Reserved.</p>
       </footer>
     </div>
