@@ -261,6 +261,13 @@ const Result = () => {
         </div>
 
         {/* Feedback Section */}
+        <button
+          onClick={() => setFeedbackModalOpen(true)}
+          className="mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg"
+        >
+          Give Feedback
+        </button>
+
         {isFeedbackModalOpen && (
           <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
@@ -323,4 +330,3 @@ const Result = () => {
 };
 
 export default Result;
-
