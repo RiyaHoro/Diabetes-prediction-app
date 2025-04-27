@@ -28,6 +28,9 @@ const Result = () => {
   const resultRef = useRef();
   const [loading, setLoading] = useState(true);
   const [topFeature, setTopFeature] = useState("");
+  const [isFeedbackModalOpen, setFeedbackModalOpen] = useState(false); // Modal state
+  const [feedback, setFeedback] = useState(""); // Store feedback
+  const [thankYouMessage, setThankYouMessage] = useState(""); // For thank you message
 
   useEffect(() => {
     if (result) {
@@ -62,6 +65,16 @@ const Result = () => {
       pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
       pdf.save("diabetes-prediction-report.pdf");
     });
+  };
+
+  const handleFeedback = (emoji) => {
+    setFeedback(emoji);
+    setThankYouMessage("Thank you for your feedback!"); // Display the thank you message
+    setTimeout(() => {
+      setFeedback(""); // Reset feedback
+      setThankYouMessage(""); // Hide thank you message
+      setFeedbackModalOpen(false); // Close the modal after 3 seconds
+    }, 3000);
   };
 
   if (loading) {
@@ -246,22 +259,57 @@ const Result = () => {
           </h2>
           <Bar data={inputChartData} options={inputChartOptions} />
         </div>
+
+        {/* Feedback Section */}
+        {isFeedbackModalOpen && (
+          <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+              {thankYouMessage ? (
+                <div className="text-center">
+                  <p className="text-2xl font-semibold text-green-600">
+                    {thankYouMessage}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <h2 className="text-2xl font-semibold text-center mb-4">
+                    We Value Your Feedback!
+                  </h2>
+                  <p className="text-center text-gray-700 mb-6">
+                    How was your experience using our app?
+                  </p>
+                  <div className="flex justify-center space-x-6 text-4xl">
+                    <button
+                      onClick={() => handleFeedback("😡")}
+                      className="hover:scale-125 transition"
+                    >
+                      😡
+                    </button>
+                    <button
+                      onClick={() => handleFeedback("😐")}
+                      className="hover:scale-125 transition"
+                    >
+                      😐
+                    </button>
+                    <button
+                      onClick={() => handleFeedback("🙂")}
+                      className="hover:scale-125 transition"
+                    >
+                      🙂 
+                    </button>
+                    <button
+                      onClick={() => handleFeedback("😍")}
+                      className="hover:scale-125 transition"
+                    >
+                      😍
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </main>
-      {/* Feedback Section */}
-      <div className="bg-white p-6 rounded-lg shadow-lg mt-10">
-        <h2 className="text-2xl font-semibold mb-4 text-center">
-          We Value Your Feedback!
-        </h2>
-        <p className="text-center text-gray-700 mb-6">
-          How was your experience using our app?
-        </p>
-        <div className="flex justify-center space-x-6 text-4xl">
-          <button className="hover:scale-125 transition">😡</button>
-          <button className="hover:scale-125 transition">😐</button>
-          <button className="hover:scale-125 transition">🙂</button>
-          <button className="hover:scale-125 transition">😍</button>
-        </div>
-      </div>
 
       <footer className="bg-gray-800 text-white text-center text-sm py-6 mt-10">
         <p>
@@ -275,3 +323,4 @@ const Result = () => {
 };
 
 export default Result;
+
