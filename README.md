@@ -1,7 +1,4 @@
-Thanks for letting me know! 👍  
-Since you haven't added the **feedback section** yet, I’ll update the README accordingly.
-
-Here’s the corrected version of your **`README.md`**:
+Here’s the updated **`README.md`** to reflect your actual project structure:
 
 ---
 
@@ -89,24 +86,33 @@ It uses a Machine Learning model trained with Scikit-learn, a Django backend for
 ## 📄 Project Structure
 
 ```
-diabetes-prediction-app/
+Diabetes_prediction/
 ├── backend/
 │   ├── manage.py
-│   ├── diabetes_app/
-│   │   ├── models.py
-│   │   ├── views.py
-│   │   ├── serializers.py
-│   │   └── urls.py
+│   ├── backend app files (models.py, views.py, urls.py, etc.)
+│
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── App.js
-├── README.md
+│   │   ├── assets/               # Static assets like images, fonts, etc.
+│   │   ├── App.jsx               # Main React component
+│   │   └── other .jsx files      # Additional React components
+│   ├── public/
+│   └── package.json
+│
+├── venv/                         # Virtual environment for backend
+│
+├── Procfile                      # For deployment (Render)
+├── requirements.txt              # Backend dependencies
+├── README.md                     # Project documentation (this file)
 ```
 
 ---
+
+## 📸 Screenshots
+
+| Home Page | Prediction Result Page | Feature Importance Chart |
+|:---------:|:----------------------:|:------------------------:|
+| (Insert screenshot) | () | (Insert screenshot) |
 
 ---
 
@@ -123,14 +129,15 @@ diabetes-prediction-app/
 ## 📬 Contact
 
 If you have any questions or suggestions, feel free to reach out!  
-**Email:** your-email@example.com  
-**LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/)
+**Email:** riyahoro74@gmail.com  
+**LinkedIn:**(https://www.linkedin.com/in/riya-horo-6121ba252/)
 
 ---
 
 # 🚑 Live Demo
 
-👉 [View Deployed Website](https://your-frontend-link.vercel.app/)  
-👉 [Backend API](https://your-backend-link.onrender.com/)
+👉 [View Deployed Website](https://diabetes-prediction-app-psi.vercel.app/)  
+👉 [Backend API](https://diabetes-prediction-app-dm26.onrender.com)
 
 ---
+
