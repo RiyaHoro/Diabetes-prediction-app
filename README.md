@@ -111,7 +111,7 @@ Diabetes_prediction/
 
 | Home Page | Prediction Result Page | Feature Importance Chart |
 |:---------:|:----------------------:|:------------------------:|
-| (Insert screenshot) | () | (Insert screenshot) |
+| (screenshots/landing_page.png) | (screenshots/resul.png) |(screenshots/features.png) |
 
 ---
 
