@@ -107,11 +107,14 @@ Diabetes_prediction/
 
 ---
 
+
 ## 📸 Screenshots
 
-| Home Page | Prediction Result Page | Feature Importance Chart |
-|:---------:|:----------------------:|:------------------------:|
-| (screenshots/landing_page.png) | (screenshots/resul.png) |(screenshots/features.png) |
+| Home Page                               | Prediction Result Page                | Feature Importance Chart            |
+|:---------------------------------------:|:-------------------------------------:|:-----------------------------------:|
+| ![Home Page](frontend/src/assets/landing_page.png)  | ![Prediction Result](frontend/src/assets/result.png) | ![Feature Importance](frontend/src/assets/features.png) |
+
+
 
 ---
 
