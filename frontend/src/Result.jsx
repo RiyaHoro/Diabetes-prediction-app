@@ -38,7 +38,8 @@ const Result = () => {
         SkinThickness: Number(result.skin_thickness) || 0,
         Insulin: Number(result.insulin) || 0,
         BMI: Number(result.bmi) || 0,
-        DiabetesPedigreeFunction: Number(result.diabetes_pedigree_function) || 0,
+        DiabetesPedigreeFunction:
+          Number(result.diabetes_pedigree_function) || 0,
         Age: Number(result.age) || 0,
       };
 
@@ -64,7 +65,9 @@ const Result = () => {
   };
 
   if (loading) {
-    return <div className="mt-10 text-xl text-center text-gray-800">Loading...</div>;
+    return (
+      <div className="mt-10 text-xl text-center text-gray-800">Loading...</div>
+    );
   }
 
   if (!result) {
@@ -123,8 +126,14 @@ const Result = () => {
         label: "Input Values",
         data: Object.values(inputFeatures),
         backgroundColor: [
-          "#7FB3D5", "#76D7C4", "#F7DC6F", "#F1948A",
-          "#BB8FCE", "#85C1E9", "#F5B7B1", "#A3E4D7"
+          "#7FB3D5",
+          "#76D7C4",
+          "#F7DC6F",
+          "#F1948A",
+          "#BB8FCE",
+          "#85C1E9",
+          "#F5B7B1",
+          "#A3E4D7",
         ],
         borderWidth: 1,
       },
@@ -185,7 +194,9 @@ const Result = () => {
             </p>
             <p className="text-lg">
               <strong>Most Influencing Feature:</strong>{" "}
-              <span className="font-semibold text-purple-700">{topFeature}</span>
+              <span className="font-semibold text-purple-700">
+                {topFeature}
+              </span>
             </p>
 
             <div>
@@ -195,7 +206,9 @@ const Result = () => {
                   <>
                     <li>Consult a doctor for further advice.</li>
                     {glucose > 125 && <li>Monitor and reduce sugar intake.</li>}
-                    {bmi > 30 && <li>Consider working on weight management.</li>}
+                    {bmi > 30 && (
+                      <li>Consider working on weight management.</li>
+                    )}
                     {age > 45 && <li>Get annual health checkups.</li>}
                   </>
                 ) : (
@@ -228,14 +241,32 @@ const Result = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Input Features Overview</h2>
+          <h2 className="text-xl font-semibold mb-4">
+            Input Features Overview
+          </h2>
           <Bar data={inputChartData} options={inputChartOptions} />
         </div>
       </main>
+      {/* Feedback Section */}
+      <div className="bg-white p-6 rounded-lg shadow-lg mt-10">
+        <h2 className="text-2xl font-semibold mb-4 text-center">
+          We Value Your Feedback!
+        </h2>
+        <p className="text-center text-gray-700 mb-6">
+          How was your experience using our app?
+        </p>
+        <div className="flex justify-center space-x-6 text-4xl">
+          <button className="hover:scale-125 transition">😡</button>
+          <button className="hover:scale-125 transition">😐</button>
+          <button className="hover:scale-125 transition">🙂</button>
+          <button className="hover:scale-125 transition">😍</button>
+        </div>
+      </div>
 
       <footer className="bg-gray-800 text-white text-center text-sm py-6 mt-10">
         <p>
-          🔍 This is not a medical diagnosis. Always consult healthcare professionals for medical advice.
+          🔍 This is not a medical diagnosis. Always consult healthcare
+          professionals for medical advice.
         </p>
         <p className="mt-2">© 2025 Diabetes Prediction App</p>
       </footer>
