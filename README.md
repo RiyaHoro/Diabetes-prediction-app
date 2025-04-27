@@ -40,7 +40,7 @@ It uses a Machine Learning model trained with Scikit-learn, a Django backend for
 
 - Clone the repository:
   ```bash
-  git clone https://github.com/your-username/diabetes-prediction-app.git
+  git clone https://github.com/riyahoro/diabetes-prediction-app.git
   ```
 - Navigate to backend folder:
   ```bash
