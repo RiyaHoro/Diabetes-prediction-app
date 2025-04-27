@@ -261,12 +261,14 @@ const Result = () => {
         </div>
 
         {/* Feedback Section */}
+        <div className="flex justify-center items-center" >
         <button
           onClick={() => setFeedbackModalOpen(true)}
-          className="mt-4 py-2 px-4 bg-blue-600 text-white rounded-lg"
+          className="w-80 h-[40%]  mt-4 py-2 px-4 bg-blue-600 text-2xl text-white rounded-xl hover:text-gray-700"
         >
           Give Feedback
         </button>
+        </div>
 
         {isFeedbackModalOpen && (
           <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">

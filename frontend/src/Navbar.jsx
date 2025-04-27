@@ -8,8 +8,14 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 bg-[#f442a6] shadow-lg z-50">
       <div className="flex items-center justify-between px-4 md:px-8 h-16 max-w-6xl mx-auto">
         {/* Logo */}
+        <div className="flex flex-start gap-1">
+        <img
+          src="src/assets/diabetes.png"  // Path to logo
+          alt="Diabeto Logo"
+          className="h-10 "  // You can adjust the height as per your needs
+        />
         <h1 className="text-2xl font-bold text-white">Diabeto</h1>
-
+        </div>
         {/* Hamburger Icon */}
         <div className="md:hidden">
           <button
