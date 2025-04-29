@@ -25,7 +25,6 @@ class Feedback(models.Model):
     ]
 
     emoji = models.CharField(max_length=5, choices=EMOJI_CHOICES)
-    comment = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

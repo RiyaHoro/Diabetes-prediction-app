@@ -210,7 +210,7 @@ const Result = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-400 to-red-400 flex flex-col">
       <header className="text-white text-center py-8 shadow-md">
-        <h1 className="text-4xl font-bold ">Prediction Result</h1>
+        <h1 className="text-4xl font-bold">Prediction Result</h1>
         <p className="text-lg mt-2">Personalized Diabetes Risk Assessment</p>
       </header>
 
@@ -284,20 +284,31 @@ const Result = () => {
         </div>
 
         <div className="flex flex-col items-center space-y-4">
-          <h3 className="text-lg text-white">How was your experience?</h3>
-          <div className="flex space-x-4">
-            {["😞", "😐", "😊", "😍", "🤩"].map((emoji, index) => (
-              <button
-                key={index}
-                onClick={() => handleFeedback(emoji)}
-                className="text-3xl hover:scale-110 transition-transform"
-              >
-                {emoji}
-              </button>
-            ))}
-          </div>
-          {thankYouMessage && (
-            <p className="text-white mt-2">{thankYouMessage}</p>
+          {!isFeedbackModalOpen ? (
+            <button
+              onClick={() => setFeedbackModalOpen(true)}
+              className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg shadow-md transition"
+            >
+              Give Feedback
+            </button>
+          ) : (
+            <>
+              <h3 className="text-lg text-white">How was your experience?</h3>
+              <div className="flex space-x-4">
+                {["😞", "😐", "😊", "😍", "🤩"].map((emoji, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleFeedback(emoji)}
+                    className="text-3xl hover:scale-110 transition-transform"
+                  >
+                    {emoji}
+                  </button>
+                ))}
+              </div>
+              {thankYouMessage && (
+                <p className="text-white mt-2">{thankYouMessage}</p>
+              )}
+            </>
           )}
         </div>
       </main>

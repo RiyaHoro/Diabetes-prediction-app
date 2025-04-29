@@ -10,6 +10,6 @@ class PatientDataSerializer(serializers.ModelSerializer):
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
-        fields = ['emoji', 'comment', 'timestamp']  # Include timestamp
+        fields = ['emoji', 'timestamp'] 
         read_only_fields = ['timestamp']
       
