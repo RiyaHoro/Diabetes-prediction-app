@@ -13,7 +13,8 @@ class PatientData(models.Model):
     age = models.IntegerField()
     outcome = models.BooleanField()
     timestamp = models.DateTimeField(default=timezone.now)
-
+    def __str__(self):
+        return f"Patient {self.id} - {self.timestamp}"
 
 class Feedback(models.Model):
     EMOJI_CHOICES = [
