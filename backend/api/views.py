@@ -1,12 +1,12 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-
+import json
 from .models import PatientData  
 from .models import Feedback
 import joblib
 import pandas as pd
 import os
-import json
+
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import FeedbackSerializer
@@ -83,17 +83,17 @@ def predict(request):
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
-@api_view(['POST'])
 @csrf_exempt
 def submit_feedback(request):
     if request.method == "POST":
-        emoji = request.POST.get("emoji")
-        comment = request.POST.get("comment", "")
-        
-        # Save the feedback
-        feedback = Feedback.objects.create(emoji=emoji, comment=comment)
-        
-        # Return success response
-        return JsonResponse({"status": "success", "message": "Feedback submitted successfully"})
+        try:
+            data = json.loads(request.body)
+            emoji = data.get("emoji")
+            comment = data.get("comment", "")
+            
+            Feedback.objects.create(emoji=emoji, comment=comment)
+            return JsonResponse({"status": "success", "message": "Feedback submitted successfully"})
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": f"Error saving feedback: {str(e)}"}, status=400)
     else:
         return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)

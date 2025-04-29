@@ -73,19 +73,23 @@ const Result = () => {
     setFeedback(emoji); // Set the selected emoji as feedback
 
     // Send feedback to backend
-    axios
-        .post('/feedback/', { emoji: emoji, comment: feedback }) // Send emoji and comment (optional)
-        .then((response) => {
-            if (response.data.status === 'success') {
-                setThankYouMessage("Thank you for your feedback!");
-            } else {
-                setThankYouMessage("Sorry, there was an issue submitting your feedback.");
-            }
-        })
-        .catch((error) => {
-            setThankYouMessage("Error: Could not submit feedback.");
-            console.error("Feedback submission error:", error);
-        });
+    axios.post('/feedback/', {
+      emoji: selectedEmoji,
+      comment: feedback
+  }, {
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  })
+  .then((response) => {
+      console.log(response.data);
+      setThankYouMessage("Thank you for your feedback!");
+  })
+  .catch((error) => {
+      console.error("Feedback submission error:", error);
+      setThankYouMessage("Error: Could not submit feedback.");
+  });
+  
 
     // Close modal after 3 seconds
     setTimeout(() => {
