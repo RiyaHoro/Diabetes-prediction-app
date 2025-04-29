@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import diabetesLogo from './assets/diabetes.png';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,11 +10,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between px-4 md:px-8 h-16 max-w-6xl mx-auto">
         {/* Logo */}
         <div className="flex flex-start gap-1">
-        <img
-          src="assets/diabetes.png"  // Path to logo
-          alt="Diabeto Logo"
-          className="h-10 " 
-        />
+        <img src={diabetesLogo} alt="Diabeto Logo" className="h-10" />
         <h1 className="text-2xl font-bold text-white">Diabeto</h1>
         </div>
         {/* Hamburger Icon */}
