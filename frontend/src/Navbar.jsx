@@ -10,9 +10,9 @@ const Navbar = () => {
         {/* Logo */}
         <div className="flex flex-start gap-1">
         <img
-          src="src/assets/diabetes.png"  // Path to logo
+          src="assets/diabetes.png"  // Path to logo
           alt="Diabeto Logo"
-          className="h-10 "  // You can adjust the height as per your needs
+          className="h-10 " 
         />
         <h1 className="text-2xl font-bold text-white">Diabeto</h1>
         </div>
