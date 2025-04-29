@@ -5,6 +5,9 @@ import joblib
 import pandas as pd
 import os
 import json
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import FeedbackSerializer
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'diabetes_model.pkl')
 
@@ -72,3 +75,13 @@ def predict(request):
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+@api_view(['POST'])
+def submit_feedback(request):
+    print("Request data:", request.data)
+    serializer = FeedbackSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({'message': 'Feedback submitted successfully'}, status=201)
+    return Response(serializer.errors, status=400)

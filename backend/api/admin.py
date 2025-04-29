@@ -1,5 +1,12 @@
 from django.contrib import admin
 from .models import PatientData
+from .models import Feedback
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('emoji', 'timestamp')  # Include timestamp
+    search_fields = ('emoji', 'comment')  # Allow searching by emoji and comment
+    list_filter = ('timestamp',)  # Optionally filter feedback by timestamp
 
 @admin.register(PatientData)
 class PatientDataAdmin(admin.ModelAdmin):
