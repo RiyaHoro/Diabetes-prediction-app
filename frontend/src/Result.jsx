@@ -12,6 +12,7 @@ import {
 } from "chart.js";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import axios from "axios"; // Importing axios
 
 ChartJS.register(
   ArcElement,
@@ -67,9 +68,21 @@ const Result = () => {
     });
   };
 
-  const handleFeedback = (emoji) => {
+  // Handle feedback and send it to the backend
+  const handleFeedback = async (emoji) => {
     setFeedback(emoji);
     setThankYouMessage("Thank you for your feedback!"); // Display the thank you message
+
+    // Send feedback to the backend
+    try {
+      const response = await axios.post('https://your-api-url.com/api/feedback/', {
+        feedback_text: emoji, // Assuming emoji is the feedback
+      });
+      console.log(response.data); // Log the response from the server
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+    }
+
     setTimeout(() => {
       setFeedback(""); // Reset feedback
       setThankYouMessage(""); // Hide thank you message
@@ -261,13 +274,13 @@ const Result = () => {
         </div>
 
         {/* Feedback Section */}
-        <div className="flex justify-center items-center" >
-        <button
-          onClick={() => setFeedbackModalOpen(true)}
-          className="w-80 h-[40%]  mt-4 py-2 px-4 bg-blue-600 text-2xl text-white rounded-xl hover:text-gray-700"
-        >
-          Give Feedback
-        </button>
+        <div className="flex justify-center items-center">
+          <button
+            onClick={() => setFeedbackModalOpen(true)}
+            className="w-80 h-[40%] mt-4 py-2 px-4 bg-blue-600 text-2xl text-white rounded-xl hover:text-gray-700"
+          >
+            Give Feedback
+          </button>
         </div>
 
         {isFeedbackModalOpen && (
@@ -284,33 +297,24 @@ const Result = () => {
                   <h2 className="text-2xl font-semibold text-center mb-4">
                     We Value Your Feedback!
                   </h2>
-                  <p className="text-center text-gray-700 mb-6">
-                    How was your experience using our app?
-                  </p>
-                  <div className="flex justify-center space-x-6 text-4xl">
+                  <div className="flex justify-around">
                     <button
-                      onClick={() => handleFeedback("😡")}
-                      className="hover:scale-125 transition"
+                      onClick={() => handleFeedback("😊")}
+                      className="text-4xl"
                     >
-                      😡
+                      😊
                     </button>
                     <button
                       onClick={() => handleFeedback("😐")}
-                      className="hover:scale-125 transition"
+                      className="text-4xl"
                     >
                       😐
                     </button>
                     <button
-                      onClick={() => handleFeedback("🙂")}
-                      className="hover:scale-125 transition"
+                      onClick={() => handleFeedback("😞")}
+                      className="text-4xl"
                     >
-                      🙂 
-                    </button>
-                    <button
-                      onClick={() => handleFeedback("😍")}
-                      className="hover:scale-125 transition"
-                    >
-                      😍
+                      😞
                     </button>
                   </div>
                 </>
@@ -319,14 +323,6 @@ const Result = () => {
           </div>
         )}
       </main>
-
-      <footer className="bg-gray-800 text-white text-center text-sm py-6 mt-10">
-        <p>
-          🔍 This is not a medical diagnosis. Always consult healthcare
-          professionals for medical advice.
-        </p>
-        <p className="mt-2">© 2025 Diabetes Prediction App</p>
-      </footer>
     </div>
   );
 };
