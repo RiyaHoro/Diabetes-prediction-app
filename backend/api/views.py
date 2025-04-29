@@ -1,17 +1,13 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .models import PatientData
+from .models import PatientData  # Add this at the top
 import joblib
 import pandas as pd
 import os
 import json
-import logging
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import FeedbackSerializer
-
-# Configure logging
-logger = logging.getLogger(__name__)
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'diabetes_model.pkl')
 
@@ -20,16 +16,20 @@ if not os.path.exists(MODEL_PATH):
 
 model = joblib.load(MODEL_PATH)
 
+
+# Add an API Home View (simple welcome message)
+def api_home(request):
+    return JsonResponse({"message": "Welcome to the Diabetes Prediction API!"})
+
+
 @csrf_exempt
 def predict(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            logger.debug(f"Received data: {data}")  # Log the incoming request data
             input_data = data.get("input_data")
 
             if not input_data or len(input_data) != 8:
-                logger.error("Invalid input data")
                 return JsonResponse({"error": "Invalid input, expected 8 features"}, status=400)
 
             feature_names = [
@@ -76,10 +76,10 @@ def predict(request):
             return JsonResponse(response)
 
         except Exception as e:
-            logger.error(f"Error occurred: {str(e)}")
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Invalid request method"}, status=405)
+
 
 @api_view(['POST'])
 def submit_feedback(request):
