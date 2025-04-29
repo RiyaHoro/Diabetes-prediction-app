@@ -71,6 +71,7 @@ const Result = () => {
 
   const handleFeedback = (emoji) => {
     setSelectedEmoji(emoji);
+    setThankYouMessage("Thank you for your feedback!");
 
     axios
       .post(
@@ -87,7 +88,6 @@ const Result = () => {
       )
       .then((response) => {
         console.log(response.data);
-        setThankYouMessage("Thank you for your feedback!");
       })
       .catch((error) => {
         console.error("Feedback submission error:", error);
@@ -283,7 +283,8 @@ const Result = () => {
           <Bar data={inputChartData} options={inputChartOptions} />
         </div>
 
-        <div className="flex flex-col items-center space-y-4">
+        {/* Feedback section */}
+        <div className="flex flex-col items-center space-y-4 mt-10">
           {!isFeedbackModalOpen ? (
             <button
               onClick={() => setFeedbackModalOpen(true)}
@@ -299,14 +300,16 @@ const Result = () => {
                   <button
                     key={index}
                     onClick={() => handleFeedback(emoji)}
-                    className="text-3xl hover:scale-110 transition-transform"
+                    className={`text-3xl hover:scale-110 transition-transform ${
+                      selectedEmoji === emoji ? "opacity-50" : ""
+                    }`}
                   >
                     {emoji}
                   </button>
                 ))}
               </div>
               {thankYouMessage && (
-                <div className="mt-4 text-3xl font-bold text-white bg-green-600 px-6 py-4 rounded-lg shadow-lg">
+                <div className="text-2xl font-bold text-green-100 bg-green-600 px-6 py-4 mt-4 rounded-xl shadow-md">
                   {thankYouMessage}
                 </div>
               )}
