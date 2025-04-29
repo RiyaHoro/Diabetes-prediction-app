@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class PatientData(models.Model):
     DiabetesPedigreefunction = models.FloatField()
     age = models.IntegerField()
     outcome = models.BooleanField()
+    timestamp = models.DateTimeField(default=timezone.now)
 
 
 class Feedback(models.Model):
