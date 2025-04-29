@@ -12,7 +12,7 @@ import {
 } from "chart.js";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import axios from "axios"; // Importing axios
+import axios from "axios";
 
 ChartJS.register(
   ArcElement,
@@ -29,9 +29,10 @@ const Result = () => {
   const resultRef = useRef();
   const [loading, setLoading] = useState(true);
   const [topFeature, setTopFeature] = useState("");
-  const [isFeedbackModalOpen, setFeedbackModalOpen] = useState(false); // Modal state
-  const [feedback, setFeedback] = useState(""); // Store feedback
-  const [thankYouMessage, setThankYouMessage] = useState(""); // For thank you message
+  const [isFeedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [thankYouMessage, setThankYouMessage] = useState("");
+  const [selectedEmoji, setSelectedEmoji] = useState(""); // ✅ ADDED
 
   useEffect(() => {
     if (result) {
@@ -68,29 +69,32 @@ const Result = () => {
     });
   };
 
-  // Handle feedback and send it to the backend
   const handleFeedback = (emoji) => {
-    setSelectedEmoji(emoji); // Store selected emoji
-    setFeedback(emoji); // Optional: if you're using it for display
-  
-    axios.post('/feedback/', {
-      emoji: emoji, // Send selected emoji
-      comment: feedback, // Optionally send comment too
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-      setThankYouMessage("Thank you for your feedback!");
-    })
-    .catch((error) => {
-      console.error("Feedback submission error:", error);
-      setThankYouMessage("Error: Could not submit feedback.");
-    });
-  
-    // Reset and close modal
+    setSelectedEmoji(emoji); // ✅ Store selected emoji
+
+    axios
+      .post(
+        "/feedback/",
+        {
+          emoji: emoji, // ✅ Use the emoji passed
+          comment: feedback,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setThankYouMessage("Thank you for your feedback!");
+      })
+      .catch((error) => {
+        console.error("Feedback submission error:", error);
+        setThankYouMessage("Error: Could not submit feedback.");
+      });
+
+    // Close modal after 3 seconds
     setTimeout(() => {
       setSelectedEmoji("");
       setFeedback("");
@@ -98,7 +102,7 @@ const Result = () => {
       setFeedbackModalOpen(false);
     }, 3000);
   };
-  
+
   if (loading) {
     return (
       <div className="mt-10 text-xl text-center text-gray-800">Loading...</div>
@@ -229,9 +233,7 @@ const Result = () => {
             </p>
             <p className="text-lg">
               <strong>Most Influencing Feature:</strong>{" "}
-              <span className="font-semibold text-purple-700">
-                {topFeature}
-              </span>
+              <span className="font-semibold text-purple-700">{topFeature}</span>
             </p>
 
             <div>
@@ -241,9 +243,7 @@ const Result = () => {
                   <>
                     <li>Consult a doctor for further advice.</li>
                     {glucose > 125 && <li>Monitor and reduce sugar intake.</li>}
-                    {bmi > 30 && (
-                      <li>Consider working on weight management.</li>
-                    )}
+                    {bmi > 30 && <li>Consider working on weight management.</li>}
                     {age > 45 && <li>Get annual health checkups.</li>}
                   </>
                 ) : (
@@ -276,9 +276,7 @@ const Result = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">
-            Input Features Overview
-          </h2>
+          <h2 className="text-xl font-semibold mb-4">Input Features Overview</h2>
           <Bar data={inputChartData} options={inputChartOptions} />
         </div>
 
