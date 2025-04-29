@@ -19,7 +19,6 @@ if not os.path.exists(MODEL_PATH):
 model = joblib.load(MODEL_PATH)
 
 
-# Add an API Home View (simple welcome message)
 def api_home(request):
     return JsonResponse({"message": "Welcome to the Diabetes Prediction API!"})
 
@@ -43,7 +42,6 @@ def predict(request):
             pred = model.predict(df)[0]
             prob = model.predict_proba(df)[0][1]
 
-            # Save data to database
             patient = PatientData(
                 pregnancies=input_data[0],
                 glucose=input_data[1],
@@ -90,17 +88,14 @@ def submit_feedback(request):
         try:
             data = json.loads(request.body)
             emoji = data.get('emoji', '')
-            comment = data.get('comment', '')
-            
-            # Check if emoji is valid
+
             if emoji not in dict(Feedback.EMOJI_CHOICES).keys():
                 return JsonResponse({'error': 'Invalid emoji'}, status=400)
 
-            # Save the feedback to the database
-            feedback = Feedback.objects.create(emoji=emoji, comment=comment)
+            feedback = Feedback.objects.create(emoji=emoji)
             feedback.save()
 
-            print(f"Received feedback: {emoji} - {comment}")  # For debugging
+            print(f"Received feedback: {emoji}")  
 
             return JsonResponse({'message': 'Feedback received successfully'}, status=200)
         except json.JSONDecodeError:
