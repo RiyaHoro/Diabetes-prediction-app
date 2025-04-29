@@ -20,34 +20,32 @@ const Predict = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const API_URL =
-    "https://diabetes-prediction-app-dm26.onrender.com/api/predict/";
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const requestData = { input_data: Object.values(formData).map(Number) };
-
+  
+    const inputData = Object.values(formData).map(Number);
+  
     try {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-
-      const result = await response.json();
-      console.log(result);
-
-      // Redirect to result page and pass data
+      const response = await axios.post(
+        "https://diabetes-prediction-app-dm26.onrender.com/api/predict/",
+        { input_data: inputData },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      const result = response.data;
+      console.log("Prediction Result:", result);
+  
       navigate("/result", { state: result });
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Prediction Error:", error);
       alert("Prediction failed. Check console for details.");
     }
   };
-
+  
   // Helper function to format labels
   const formatLabel = (key) => {
     return key
