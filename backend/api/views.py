@@ -83,17 +83,18 @@ def predict(request):
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+@api_view(['POST'])
 @csrf_exempt
 def submit_feedback(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            emoji = data.get("emoji")
-            comment = data.get("comment", "")
-            
-            Feedback.objects.create(emoji=emoji, comment=comment)
-            return JsonResponse({"status": "success", "message": "Feedback submitted successfully"})
-        except Exception as e:
-            return JsonResponse({"status": "error", "message": f"Error saving feedback: {str(e)}"}, status=400)
-    else:
-        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
+            feedback = data.get('feedback', '')
+            print(f"Received feedback: {feedback}")  # For debugging
+
+            # Optionally, save it to DB here if you have a model
+
+            return JsonResponse({'message': 'Feedback received'}, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    return JsonResponse({'error': 'Invalid method'}, status=405)

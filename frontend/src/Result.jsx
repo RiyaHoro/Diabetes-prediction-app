@@ -32,7 +32,7 @@ const Result = () => {
   const [isFeedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [thankYouMessage, setThankYouMessage] = useState("");
-  const [selectedEmoji, setSelectedEmoji] = useState(""); // ✅ ADDED
+  const [selectedEmoji, setSelectedEmoji] = useState("");
 
   useEffect(() => {
     if (result) {
@@ -70,13 +70,13 @@ const Result = () => {
   };
 
   const handleFeedback = (emoji) => {
-    setSelectedEmoji(emoji); // ✅ Store selected emoji
+    setSelectedEmoji(emoji);
 
     axios
       .post(
-        "/feedback/",
+        "https://diabetes-prediction-app-dm26.onrender.com/api/feedback/",
         {
-          emoji: emoji, // ✅ Use the emoji passed
+          emoji: emoji,
           comment: feedback,
         },
         {
@@ -94,7 +94,6 @@ const Result = () => {
         setThankYouMessage("Error: Could not submit feedback.");
       });
 
-    // Close modal after 3 seconds
     setTimeout(() => {
       setSelectedEmoji("");
       setFeedback("");
@@ -233,7 +232,9 @@ const Result = () => {
             </p>
             <p className="text-lg">
               <strong>Most Influencing Feature:</strong>{" "}
-              <span className="font-semibold text-purple-700">{topFeature}</span>
+              <span className="font-semibold text-purple-700">
+                {topFeature}
+              </span>
             </p>
 
             <div>
