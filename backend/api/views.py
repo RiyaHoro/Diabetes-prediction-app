@@ -1,6 +1,8 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from .models import PatientData  # Add this at the top
+
+from .models import PatientData  
+from .models import Feedback
 import joblib
 import pandas as pd
 import os
@@ -84,15 +86,14 @@ def predict(request):
 @api_view(['POST'])
 @csrf_exempt
 def submit_feedback(request):
-    if request.method == 'POST':
-        emoji = request.POST.get('emoji')  # Get the emoji feedback from the frontend
-        comment = request.POST.get('comment', '')  # Get the optional comment
-
-        if emoji:  # If emoji is provided
-            feedback = Feedback.objects.create(emoji=emoji, comment=comment)
-            feedback.save()
-            return JsonResponse({'status': 'success', 'message': 'Feedback received successfully'})
-        else:
-            return JsonResponse({'status': 'error', 'message': 'No emoji received'})
-
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+    if request.method == "POST":
+        emoji = request.POST.get("emoji")
+        comment = request.POST.get("comment", "")
+        
+        # Save the feedback
+        feedback = Feedback.objects.create(emoji=emoji, comment=comment)
+        
+        # Return success response
+        return JsonResponse({"status": "success", "message": "Feedback submitted successfully"})
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method"}, status=405)
