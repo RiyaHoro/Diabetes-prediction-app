@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';  // Add this import for axios
 
 const Predict = () => {
   const navigate = useNavigate();
@@ -16,42 +17,39 @@ const Predict = () => {
   });
 
   const handleChange = (e) => {
-    // Update form data with the input value
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const API_URL =
+    "https://diabetes-prediction-app-dm26.onrender.com/api/predict/";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    const inputData = Object.values(formData).map(Number);
-  
+
+    const requestData = { input_data: Object.values(formData).map(Number) };
+
     try {
-      const response = await axios.post(
-        "https://diabetes-prediction-app-dm26.onrender.com/api/predict/",
-        { input_data: inputData },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-  
+      const response = await axios.post(API_URL, requestData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
       const result = response.data;
-      console.log("Prediction Result:", result);
-  
+      console.log(result);
+
       navigate("/result", { state: result });
     } catch (error) {
       console.error("Prediction Error:", error);
       alert("Prediction failed. Check console for details.");
     }
   };
-  
-  // Helper function to format labels
+
   const formatLabel = (key) => {
     return key
-      .replace(/([A-Z])/g, " $1") // Add space before capital letters
-      .replace(/_/g, " ") // Replace underscores with spaces
-      .replace(/^./, (str) => str.toUpperCase()); // Capitalize the first letter
+      .replace(/([A-Z])/g, " $1")
+      .replace(/_/g, " ")
+      .replace(/^./, (str) => str.toUpperCase());
   };
 
   return (
@@ -75,11 +73,10 @@ const Predict = () => {
                   htmlFor={key}
                   className="text-sm font-medium text-gray-700"
                 >
-                  {/* Format the key for the label */}
                   {formatLabel(key)}
                 </label>
                 <input
-                  type="text" // Change input type to text to accept both float and number
+                  type="text"
                   id={key}
                   name={key}
                   value={formData[key]}
