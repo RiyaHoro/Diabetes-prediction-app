@@ -70,34 +70,35 @@ const Result = () => {
 
   // Handle feedback and send it to the backend
   const handleFeedback = (emoji) => {
-    setFeedback(emoji); // Set the selected emoji as feedback
-
-    // Send feedback to backend
+    setSelectedEmoji(emoji); // Store selected emoji
+    setFeedback(emoji); // Optional: if you're using it for display
+  
     axios.post('/feedback/', {
-      emoji: selectedEmoji,
-      comment: feedback
-  }, {
+      emoji: emoji, // Send selected emoji
+      comment: feedback, // Optionally send comment too
+    }, {
       headers: {
-          'Content-Type': 'application/json'
-      }
-  })
-  .then((response) => {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
       console.log(response.data);
       setThankYouMessage("Thank you for your feedback!");
-  })
-  .catch((error) => {
+    })
+    .catch((error) => {
       console.error("Feedback submission error:", error);
       setThankYouMessage("Error: Could not submit feedback.");
-  });
+    });
   
-
-    // Close modal after 3 seconds
+    // Reset and close modal
     setTimeout(() => {
-        setFeedback(""); // Reset feedback
-        setThankYouMessage(""); // Hide thank you message
-        setFeedbackModalOpen(false); // Close modal
+      setSelectedEmoji("");
+      setFeedback("");
+      setThankYouMessage("");
+      setFeedbackModalOpen(false);
     }, 3000);
-};
+  };
+  
   if (loading) {
     return (
       <div className="mt-10 text-xl text-center text-gray-800">Loading...</div>
