@@ -69,12 +69,12 @@ const Result = () => {
     });
   };
 
-  const handleFeedback = (emoji) => {
+  const handleFeedback = async (emoji) => {
     setSelectedEmoji(emoji);
-    setThankYouMessage("Thank you for your feedback!");
-
-    axios
-      .post(
+    setThankYouMessage(""); // Clear any previous messages
+  
+    try {
+      const response = await axios.post(
         "https://diabetes-prediction-app-dm26.onrender.com/api/feedback/",
         {
           emoji: emoji,
@@ -85,22 +85,25 @@ const Result = () => {
             "Content-Type": "application/json",
           },
         }
-      )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Feedback submission error:", error);
-        setThankYouMessage("Error: Could not submit feedback.");
-      });
-
-    setTimeout(() => {
-      setSelectedEmoji("");
-      setFeedback("");
-      setThankYouMessage("");
-      setFeedbackModalOpen(false);
-    }, 3000);
+      );
+  
+      console.log(response.data);
+      setThankYouMessage("Thank you for your feedback!");
+  
+      // Auto close modal
+      setTimeout(() => {
+        setSelectedEmoji("");
+        setFeedback("");
+        setThankYouMessage("");
+        setFeedbackModalOpen(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Feedback submission error:", error);
+      setThankYouMessage("Error: Could not submit feedback.");
+    }
   };
+  
+  
 
   if (loading) {
     return (
