@@ -82,10 +82,17 @@ def predict(request):
 
 
 @api_view(['POST'])
+@csrf_exempt
 def submit_feedback(request):
-    print("Request data:", request.data)
-    serializer = FeedbackSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({'message': 'Feedback submitted successfully'}, status=201)
-    return Response(serializer.errors, status=400)
+    if request.method == 'POST':
+        emoji = request.POST.get('emoji')  # Get the emoji feedback from the frontend
+        comment = request.POST.get('comment', '')  # Get the optional comment
+
+        if emoji:  # If emoji is provided
+            feedback = Feedback.objects.create(emoji=emoji, comment=comment)
+            feedback.save()
+            return JsonResponse({'status': 'success', 'message': 'Feedback received successfully'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'No emoji received'})
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

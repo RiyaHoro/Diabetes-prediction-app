@@ -69,27 +69,31 @@ const Result = () => {
   };
 
   // Handle feedback and send it to the backend
-  const handleFeedback = async (emoji) => {
-    setFeedback(emoji);
-    setThankYouMessage("Thank you for your feedback!"); // Display the thank you message
+  const handleFeedback = (emoji) => {
+    setFeedback(emoji); // Set the selected emoji as feedback
 
-    // Send feedback to the backend
-    try {
-      const response = await axios.post('https://your-api-url.com/api/feedback/', {
-        feedback_text: emoji, // Assuming emoji is the feedback
-      });
-      console.log(response.data); // Log the response from the server
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-    }
+    // Send feedback to backend
+    axios
+        .post('/feedback/', { emoji: emoji, comment: feedback }) // Send emoji and comment (optional)
+        .then((response) => {
+            if (response.data.status === 'success') {
+                setThankYouMessage("Thank you for your feedback!");
+            } else {
+                setThankYouMessage("Sorry, there was an issue submitting your feedback.");
+            }
+        })
+        .catch((error) => {
+            setThankYouMessage("Error: Could not submit feedback.");
+            console.error("Feedback submission error:", error);
+        });
 
+    // Close modal after 3 seconds
     setTimeout(() => {
-      setFeedback(""); // Reset feedback
-      setThankYouMessage(""); // Hide thank you message
-      setFeedbackModalOpen(false); // Close the modal after 3 seconds
+        setFeedback(""); // Reset feedback
+        setThankYouMessage(""); // Hide thank you message
+        setFeedbackModalOpen(false); // Close modal
     }, 3000);
-  };
-
+};
   if (loading) {
     return (
       <div className="mt-10 text-xl text-center text-gray-800">Loading...</div>

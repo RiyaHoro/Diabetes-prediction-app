@@ -205,15 +205,6 @@ const Insights = () => {
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <p className="mb-4 text-lg text-gray-700">
-            Want more personalized advice or assistance? Reach out to us!
-          </p>
-          <a href="mailto:riyahoro74@gmail.com">
-            <button className="btn btn-primary">Contact Us</button>
-          </a>
-        </div>
       </div>
     </section>
   );
