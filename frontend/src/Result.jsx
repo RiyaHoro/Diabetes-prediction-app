@@ -29,8 +29,6 @@ const Result = () => {
   const resultRef = useRef();
   const [loading, setLoading] = useState(true);
   const [topFeature, setTopFeature] = useState("");
-  const [isFeedbackModalOpen, setFeedbackModalOpen] = useState(false);
-  const [feedback, setFeedback] = useState("");
   const [thankYouMessage, setThankYouMessage] = useState("");
   const [selectedEmoji, setSelectedEmoji] = useState("");
 
@@ -210,6 +208,12 @@ const Result = () => {
       </header>
 
       <main ref={resultRef} className="p-6 max-w-6xl mx-auto space-y-10">
+        {thankYouMessage && (
+          <div className="bg-green-400 text-white p-4 rounded-lg text-center">
+            {thankYouMessage}
+          </div>
+        )}
+
         <div className="flex flex-col lg:flex-row gap-10">
           <div className="flex-1 bg-white p-6 rounded-lg shadow-lg flex justify-center items-center">
             <Doughnut data={chartData} options={chartOptions} />
@@ -291,9 +295,6 @@ const Result = () => {
               </button>
             ))}
           </div>
-          {thankYouMessage && (
-            <p className="text-white mt-2">{thankYouMessage}</p>
-          )}
         </div>
       </main>
     </div>
