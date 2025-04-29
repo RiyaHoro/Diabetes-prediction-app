@@ -146,5 +146,9 @@ CSRF_TRUSTED_ORIGINS = [
     # Add your deployed domain if necessary
     'https://diabetes-prediction-app-dm26.onrender.com',
 ]
+CORS_ALLOWED_ORIGINS = [
+    "https://diabetes-prediction-app-psi.vercel.app",
+]
+
 
 
