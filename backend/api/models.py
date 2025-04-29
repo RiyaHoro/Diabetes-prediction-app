@@ -10,11 +10,11 @@ class PatientData(models.Model):
     DiabetesPedigreefunction = models.FloatField()
     age = models.IntegerField()
     outcome = models.BooleanField()
-    timestamp = models.DateTimeField(default=timezone.now)  # Ensure this line is there
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Patient {self.id} - {self.timestamp}"
-
+        return f"Patient {self.id} - {self.timestamp.strftime('%Y-%m-%d %H:%M')}"
+    
 class Feedback(models.Model):
     EMOJI_CHOICES = [
         ('😄', 'Very Helpful'),
@@ -27,7 +27,6 @@ class Feedback(models.Model):
     emoji = models.CharField(max_length=5, choices=EMOJI_CHOICES)
     comment = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    
 
     def __str__(self):
         return f"{self.emoji} - {self.timestamp.strftime('%Y-%m-%d %H:%M')}"

@@ -88,29 +88,21 @@ def predict(request):
 def submit_feedback(request):
     if request.method == 'POST':
         try:
-            # Load the incoming JSON data
             data = json.loads(request.body)
             emoji = data.get('emoji', '')
-         
+            comment = data.get('comment', '')
+            
+            # Check if emoji is valid
+            if emoji not in dict(Feedback.EMOJI_CHOICES).keys():
+                return JsonResponse({'error': 'Invalid emoji'}, status=400)
 
-            # Print feedback data for debugging
-            print(f"Received feedback: Emoji - {emoji}")
+            # Save the feedback to the database
+            feedback = Feedback.objects.create(emoji=emoji, comment=comment)
+            feedback.save()
 
-            # Check if the emoji and comment are provided
-            if not emoji:
-                return JsonResponse({'error': 'Emoji is required'}, status=400)
+            print(f"Received feedback: {emoji} - {comment}")  # For debugging
 
-            # Create a new feedback entry
-            feedback = Feedback.objects.create(emoji=emoji)
-
-            # Optionally, save the feedback to the database using a serializer
-            # feedback_serializer = FeedbackSerializer(data=data)
-            # if feedback_serializer.is_valid():
-            #     feedback_serializer.save()
-            #     return JsonResponse({'message': 'Feedback saved successfully!'}, status=201)
-
-            return JsonResponse({'message': 'Feedback received and saved successfully!'}, status=200)
-        
+            return JsonResponse({'message': 'Feedback received successfully'}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     return JsonResponse({'error': 'Invalid method'}, status=405)

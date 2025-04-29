@@ -277,59 +277,29 @@ const Result = () => {
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Input Features Overview</h2>
+          <h3 className="text-2xl font-semibold mb-4 text-gray-800">
+            Feature Value Chart
+          </h3>
           <Bar data={inputChartData} options={inputChartOptions} />
         </div>
 
-        {/* Feedback Section */}
-        <div className="flex justify-center items-center">
-          <button
-            onClick={() => setFeedbackModalOpen(true)}
-            className="w-80 h-[40%] mt-4 py-2 px-4 bg-blue-600 text-2xl text-white rounded-xl hover:text-gray-700"
-          >
-            Give Feedback
-          </button>
-        </div>
-
-        {isFeedbackModalOpen && (
-          <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-              {thankYouMessage ? (
-                <div className="text-center">
-                  <p className="text-2xl font-semibold text-green-600">
-                    {thankYouMessage}
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <h2 className="text-2xl font-semibold text-center mb-4">
-                    We Value Your Feedback!
-                  </h2>
-                  <div className="flex justify-around">
-                    <button
-                      onClick={() => handleFeedback("😊")}
-                      className="text-4xl"
-                    >
-                      😊
-                    </button>
-                    <button
-                      onClick={() => handleFeedback("😐")}
-                      className="text-4xl"
-                    >
-                      😐
-                    </button>
-                    <button
-                      onClick={() => handleFeedback("😞")}
-                      className="text-4xl"
-                    >
-                      😞
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
+        <div className="flex flex-col items-center space-y-4">
+          <h3 className="text-lg text-white">How was your experience?</h3>
+          <div className="flex space-x-4">
+            {["😞", "😐", "😊", "😍", "🤩"].map((emoji, index) => (
+              <button
+                key={index}
+                onClick={() => handleFeedback(emoji)}
+                className="text-3xl hover:scale-110 transition-transform"
+              >
+                {emoji}
+              </button>
+            ))}
           </div>
-        )}
+          {thankYouMessage && (
+            <p className="text-white mt-2">{thankYouMessage}</p>
+          )}
+        </div>
       </main>
     </div>
   );
