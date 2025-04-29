@@ -72,7 +72,7 @@ const Result = () => {
   const handleFeedback = async (emoji) => {
     setSelectedEmoji(emoji);
     setThankYouMessage(""); // Clear any previous messages
-  
+
     try {
       const response = await axios.post(
         "https://diabetes-prediction-app-dm26.onrender.com/api/feedback/",
@@ -86,10 +86,10 @@ const Result = () => {
           },
         }
       );
-  
+
       console.log(response.data);
       setThankYouMessage("Thank you for your feedback!");
-  
+
       // Auto close modal
       setTimeout(() => {
         setSelectedEmoji("");
@@ -102,8 +102,6 @@ const Result = () => {
       setThankYouMessage("Error: Could not submit feedback.");
     }
   };
-  
-  
 
   if (loading) {
     return (
@@ -247,7 +245,9 @@ const Result = () => {
                   <>
                     <li>Consult a doctor for further advice.</li>
                     {glucose > 125 && <li>Monitor and reduce sugar intake.</li>}
-                    {bmi > 30 && <li>Consider working on weight management.</li>}
+                    {bmi > 30 && (
+                      <li>Consider working on weight management.</li>
+                    )}
                     {age > 45 && <li>Get annual health checkups.</li>}
                   </>
                 ) : (
@@ -286,8 +286,7 @@ const Result = () => {
           <Bar data={inputChartData} options={inputChartOptions} />
         </div>
 
-        {/* Feedback section */}
-        <div className="flex flex-col items-center space-y-4 mt-10">
+        <div className="flex flex-col items-center space-y-4">
           {!isFeedbackModalOpen ? (
             <button
               onClick={() => setFeedbackModalOpen(true)}
@@ -299,21 +298,21 @@ const Result = () => {
             <>
               <h3 className="text-lg text-white">How was your experience?</h3>
               <div className="flex space-x-4">
-                {["😞", "😐", "😊", "😍", "🤩"].map((emoji, index) => (
+                {["😄", "🙂", "😐", "🙁", "😠"].map((emoji, index) => (
                   <button
                     key={index}
                     onClick={() => handleFeedback(emoji)}
-                    className={`text-3xl hover:scale-110 transition-transform ${
-                      selectedEmoji === emoji ? "opacity-50" : ""
-                    }`}
+                    className="text-4xl hover:scale-110 transition-transform"
                   >
                     {emoji}
                   </button>
                 ))}
               </div>
               {thankYouMessage && (
-                <div className="text-2xl font-bold text-green-100 bg-green-600 px-6 py-4 mt-4 rounded-xl shadow-md">
-                  {thankYouMessage}
+                <div className="mt-4 p-4 bg-white rounded-lg shadow text-center">
+                  <p className="text-xl font-bold text-gray-800">
+                    {thankYouMessage}
+                  </p>
                 </div>
               )}
             </>
