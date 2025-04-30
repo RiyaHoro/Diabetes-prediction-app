@@ -10,6 +10,9 @@ import os
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import FeedbackSerializer
+from django.views.decorators.http import require_POST
+from asgiref.sync import sync_to_async
+
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'diabetes_model.pkl')
 
