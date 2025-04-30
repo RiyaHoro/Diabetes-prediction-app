@@ -102,8 +102,9 @@ def submit_feedback(request):
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     return JsonResponse({'error': 'Invalid method'}, status=405)
 
-@api_view(['POST'])
+
 @csrf_exempt
+@require_POST
 def contact_message(request):
     if request.method == 'POST':
         serializer = ContactMessageSerializer(data=request.data)
