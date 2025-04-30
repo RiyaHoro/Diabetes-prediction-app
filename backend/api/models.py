@@ -29,11 +29,12 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"{self.emoji} - {self.timestamp.strftime('%Y-%m-%d %H:%M')}"
+
 class ContactMessage(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField()
     message = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Message from {self.name} - {self.timestamp.strftime('%Y-%m-%d %H:%M')}"

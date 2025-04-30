@@ -105,14 +105,18 @@ def submit_feedback(request):
 
 
 @csrf_exempt
-@require_POST
+@api_view(['POST'])
 def contact_message(request):
-    name = request.POST.get('name')
-    email = request.POST.get('email')
-    message = request.POST.get('message')
+    print("Contact form hit")  # Log received request
+    print("Request data:", request.data)
 
-    if name and email and message:
-        # Normally you'd save this to DB
-        return JsonResponse({"status": "success", "message": "Message sent successfully!"})
-    else:
-        return JsonResponse({"status": "error", "message": "Missing required fields."}, status=400)
+    if request.method == 'POST':
+        name = request.data.get('name')
+        email = request.data.get('email')
+        message = request.data.get('message')
+
+        if name and email and message:
+            print("Saving contact:", name, email)
+            return JsonResponse({"status": "success", "message": "Message sent successfully!"})
+        else:
+            return JsonResponse({"status": "error", "message": "Missing required fields."}, status=400)
