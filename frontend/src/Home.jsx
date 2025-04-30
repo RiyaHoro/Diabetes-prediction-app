@@ -5,6 +5,7 @@ import heroImage from './assets/background_image.png';
 import AboutUs from './AboutUs';
 import Insights from './Insights';
 import Predict from './Predict';
+import ContactForm from './ContactForm';
 
 const Home = () => {
   return (
@@ -40,6 +41,10 @@ const Home = () => {
 
       <section id="Insights">
         <Insights />
+      </section>
+
+      <section id="ContactUs">
+        <ContactForm />
       </section>
 
       {/* Footer Section */}

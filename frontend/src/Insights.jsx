@@ -32,11 +32,11 @@ const Insights = () => {
   const modelAccuracy = 92; // Replace with dynamic value if needed
 
   return (
-    <section className="py-16 bg-[#d7aef3]" id="Insights">
+    <section className="py-16 bg-blue-200" id="Insights">
       <div className="container px-6 mx-auto max-w-7xl md:px-12">
         {/* Title */}
         <div className="mb-12 text-center">
-          <h2 className="text-4xl font-semibold text-blue-800">
+          <h2 className="text-4xl font-bold text-blue-800">
             Diabetes Insights & Model Accuracy
           </h2>
           <p className="mt-4 text-xl text-gray-700">
@@ -48,7 +48,7 @@ const Insights = () => {
         {/* Statistics and Accuracy */}
         <div className="grid gap-6 mb-10 md:grid-cols-2">
           {/* Diabetes Stats */}
-          <div className="p-8 bg-white border-2 border-blue-500 rounded-lg shadow-lg">
+          <div className="p-8 bg-white border-2 shadow-md rounded-lg shadow-lg">
             <h3 className="mb-4 text-2xl font-semibold text-blue-600">
               Diabetes Statistics Around the World
             </h3>
@@ -80,7 +80,7 @@ const Insights = () => {
           </div>
 
           {/* Model Accuracy Box */}
-          <div className="p-8 bg-white border-2 border-blue-500 rounded-lg shadow-lg">
+          <div className="p-8 bg-white border-2 shadow-md rounded-lg shadow-lg">
             <h3 className="mb-4 text-2xl font-semibold text-blue-600">
               Model Accuracy
             </h3>
@@ -89,7 +89,7 @@ const Insights = () => {
               accuracy. The accuracy reflects how well the model predicts the
               likelihood of developing diabetes based on user input.
             </p>
-            <div className="p-6 text-center bg-blue-100 border-2 border-blue-500 rounded-lg">
+            <div className="p-6 text-center bg-blue-100 shadow-md rounded-lg">
               <h4 className="mb-2 text-3xl font-semibold text-blue-600">
                 Accuracy: {modelAccuracy}%
               </h4>
@@ -102,7 +102,7 @@ const Insights = () => {
         </div>
 
         {/* Health Measures */}
-        <div className="p-8 mb-10 bg-white border-2 border-blue-500 rounded-lg shadow-lg">
+        <div className="p-8 mb-10 bg-white border-2 shadow-md rounded-lg shadow-lg">
           <h3 className="mb-4 text-3xl font-semibold text-blue-600">
             Health Measures to Take
           </h3>

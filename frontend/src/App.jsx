@@ -4,6 +4,7 @@ import Home from './Home';
 import Predict from './Predict';
 import Insights from './Insights';
 import Result from './Result'; 
+import ContactForm from "./ContactForm";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/predict" element={<Predict />} />
         <Route path="/insights" element={<Insights />} />
-        <Route path="/result" element={<Result />} /> {/* ✅ Add this */}
+        <Route path="/result" element={<Result />} />
+        <Route path="/contact" element={<ContactForm />} />
       </Routes>
     </Router>
   );

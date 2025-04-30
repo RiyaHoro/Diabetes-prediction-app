@@ -7,12 +7,14 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-[#f442a6] shadow-lg z-50">
-      <div className="flex items-center justify-between px-4 md:px-8 h-16 max-w-6xl mx-auto">
+      <div className="flex items-center justify-between px-4 md:px-8 h-16 w-full">
+
         {/* Logo */}
-        <div className="flex flex-start gap-1">
-        <img src={diabetesLogo} alt="Diabeto Logo" className="h-10" />
-        <h1 className="text-2xl font-bold text-white">Diabeto</h1>
+        <div className="flex justify-start gap-1">
+          <img src={diabetesLogo} alt="Diabeto Logo" className="h-10" />
+          <h1 className="text-2xl font-bold text-white">Diabeto</h1>
         </div>
+
         {/* Hamburger Icon */}
         <div className="md:hidden">
           <button
@@ -24,11 +26,12 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex items-center space-x-6 text-white text-lg gap-4">
+        <ul className="hidden md:flex items-center justify-center space-x-8 text-white text-lg gap-4 w-full">
           <li><a href="#Home" className="hover:text-blue-200">Home</a></li>
           <li><a href="#AboutUs" className="hover:text-blue-200">About Us</a></li>
           <li><Link to="/predict" className="hover:text-blue-200">Predict</Link></li>
           <li><a href="#Insights" className="hover:text-blue-200">Insights</a></li>
+          <li><a href="#ContactUs" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">Contact us</a></li>
           <li>
             <a
               href="https://www.google.com/maps/search/diabetologist+near+me"
@@ -50,6 +53,8 @@ const Navbar = () => {
             <li><a href="#AboutUs" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">About Us</a></li>
             <li><Link to="/predict" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">Predict</Link></li>
             <li><a href="#Insights" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">Insights</a></li>
+            <li><a href="#ContactUs" onClick={() => setMenuOpen(false)} className="hover:text-blue-200">Contact us</a></li>
+           
             <li>
               <a
                 href="https://www.google.com/maps/search/diabetologist+near+me"

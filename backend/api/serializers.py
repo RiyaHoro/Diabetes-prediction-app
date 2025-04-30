@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import PatientData
 from .models import Feedback
+from .models import ContactMessage 
 
 class PatientDataSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,3 +14,10 @@ class FeedbackSerializer(serializers.ModelSerializer):
         fields = ['emoji', 'timestamp'] 
         read_only_fields = ['timestamp']
       
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage  # Use the model correctly here
+        fields = ['name', 'email', 'message', 'timestamp']
+        read_only_fields = ['timestamp']
