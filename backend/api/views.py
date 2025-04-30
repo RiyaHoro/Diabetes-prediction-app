@@ -103,20 +103,18 @@ def submit_feedback(request):
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     return JsonResponse({'error': 'Invalid method'}, status=405)
 
-
 @csrf_exempt
-@api_view(['POST'])
+@api_view(['POST', 'GET'])  # Add GET here temporarily
 def contact_message(request):
-    print("Contact form hit")  # Log received request
-    print("Request data:", request.data)
+    if request.method == 'GET':
+        return JsonResponse({"message": "Contact form endpoint. Send a POST request."}, status=200)
 
-    if request.method == 'POST':
-        name = request.data.get('name')
-        email = request.data.get('email')
-        message = request.data.get('message')
+    name = request.data.get('name')
+    email = request.data.get('email')
+    message = request.data.get('message')
 
-        if name and email and message:
-            print("Saving contact:", name, email)
-            return JsonResponse({"status": "success", "message": "Message sent successfully!"})
-        else:
-            return JsonResponse({"status": "error", "message": "Missing required fields."}, status=400)
+    if name and email and message:
+        # Optionally save to DB here
+        return JsonResponse({"status": "success", "message": "Message sent successfully!"})
+    else:
+        return JsonResponse({"status": "error", "message": "Missing required fields."}, status=400)

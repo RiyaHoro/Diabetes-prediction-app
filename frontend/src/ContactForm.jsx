@@ -23,12 +23,10 @@ export default function ContactForm() {
     formData.append("message", form.message);
 
     try {
-      const response = await axios.post(
+      const response = await await axios.post(
         "https://diabetes-prediction-app-dm26.onrender.com/api/contact/",
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        formData
       );
-      
 
       if (response.data.status === "success") {
         setStatus("Message sent successfully!");
