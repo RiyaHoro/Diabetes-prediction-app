@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // ✅ Added missing state
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -79,9 +80,12 @@ export default function ContactForm() {
             />
             <button
               type="submit"
-              className="w-full font-serif bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105"
+              disabled={isLoading}
+              className={`w-full font-serif bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-3 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Send Message
+              {isLoading ? "Sending..." : "Send Message"}
             </button>
           </form>
           {status && (
