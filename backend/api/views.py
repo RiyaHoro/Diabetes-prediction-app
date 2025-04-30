@@ -106,15 +106,12 @@ def submit_feedback(request):
 @csrf_exempt
 @api_view(['POST', 'GET'])  # Add GET here temporarily
 def contact_message(request):
-    if request.method == 'GET':
-        return JsonResponse({"message": "Contact form endpoint. Send a POST request."}, status=200)
-
     name = request.data.get('name')
     email = request.data.get('email')
     message = request.data.get('message')
 
     if name and email and message:
-        # Optionally save to DB here
-        return JsonResponse({"status": "success", "message": "Message sent successfully!"})
+        ContactMessage.objects.create(name=name, email=email, message=message)
+        return Response({"status": "success", "message": "Message sent successfully!"})
     else:
-        return JsonResponse({"status": "error", "message": "Missing required fields."}, status=400)
+        return Response({"status": "error", "message": "Missing required fields."}, status=400)

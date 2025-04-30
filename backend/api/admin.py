@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import PatientData
 from .models import Feedback
+from .models import ContactMessage
+
 
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
@@ -13,3 +15,5 @@ class PatientDataAdmin(admin.ModelAdmin):
     list_display = ('id', 'pregnancies', 'glucose', 'blood_pressure', 'insulin', 'bmi', 'age', 'outcome', 'DiabetesPedigreefunction','timestamp')
     search_fields = ('glucose', 'age', 'outcome')
     list_filter = ('outcome',)
+
+admin.site.register(ContactMessage)
