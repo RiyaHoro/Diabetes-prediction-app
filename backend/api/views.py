@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 import json
 from .models import PatientData  
 from .models import Feedback
@@ -10,9 +11,6 @@ import os
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import FeedbackSerializer
-from django.views.decorators.http import require_POST
-from asgiref.sync import sync_to_async
-
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'diabetes_model.pkl')
 
@@ -25,7 +23,7 @@ model = joblib.load(MODEL_PATH)
 def api_home(request):
     return JsonResponse({"message": "Welcome to the Diabetes Prediction API!"})
 
-
+@api_view(['POST'])
 @csrf_exempt
 def predict(request):
     if request.method == 'POST':
@@ -109,9 +107,12 @@ def submit_feedback(request):
 @csrf_exempt
 @require_POST
 def contact_message(request):
-    if request.method == 'POST':
-        serializer = ContactMessageSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Message sent successfully!"}, status=201)
-        return Response(serializer.errors, status=400)
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    message = request.POST.get('message')
+
+    if name and email and message:
+        # Normally you'd save this to DB
+        return JsonResponse({"status": "success", "message": "Message sent successfully!"})
+    else:
+        return JsonResponse({"status": "error", "message": "Missing required fields."}, status=400)

@@ -11,23 +11,34 @@ export default function ContactForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Show loading state
+    setIsLoading(true);
     setStatus("Sending...");
+
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("email", form.email);
+    formData.append("message", form.message);
+
     try {
-      await axios.post(
+      const response = await axios.post(
         "https://diabetes-prediction-app-dm26.onrender.com/api/contact/",
-        form
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
-      setStatus("Message sent successfully!");
-      setForm({ name: "", email: "", message: "" });
+
+      if (response.data.status === "success") {
+        setStatus("Message sent successfully!");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("Could not send message. Please try again.");
+      }
     } catch (error) {
+      console.error(error.response?.data || error.message);
       setStatus("Could not send message. Please try again.");
     } finally {
-      setIsLoading(false); // Hide loading state after completion
+      setIsLoading(false);
     }
   };
 
