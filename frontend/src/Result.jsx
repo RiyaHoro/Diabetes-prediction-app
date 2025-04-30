@@ -69,40 +69,37 @@ const Result = () => {
     });
   };
 
-  const handleFeedback = async (emoji) => {
-    setSelectedEmoji(emoji);
-    setThankYouMessage(""); // Clear any previous messages
-
-    try {
-      const response = await axios.post(
-        "https://diabetes-prediction-app-dm26.onrender.com/api/feedback/",
+  const handleFeedback = (emoji) => {
+    setSelectedEmoji(emoji); // For UI highlight, optional
+  
+    axios.post("https://diabetes-prediction-app-dm26.onrender.com/api/feedback/",
         {
-          emoji: emoji,
-          comment: feedback,
+          emoji: emoji, 
+          
         },
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
-      );
-
-      console.log(response.data);
-      setThankYouMessage("Thank you for your feedback!");
-
-      // Auto close modal
-      setTimeout(() => {
-        setSelectedEmoji("");
-        setFeedback("");
-        setThankYouMessage("");
-        setFeedbackModalOpen(false);
-      }, 3000);
-    } catch (error) {
-      console.error("Feedback submission error:", error);
-      setThankYouMessage("Error: Could not submit feedback.");
-    }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setThankYouMessage("Thank you for your feedback!");
+      })
+      .catch((error) => {
+        console.error("Feedback submission error:", error);
+        setThankYouMessage("Error: Could not submit feedback.");
+      });
+  
+    setTimeout(() => {
+      setSelectedEmoji("");
+      setFeedback("");
+      setThankYouMessage("");
+      setFeedbackModalOpen(false);
+    }, 3000);
   };
-
+  
   if (loading) {
     return (
       <div className="mt-10 text-xl text-center text-gray-800">Loading...</div>
