@@ -104,24 +104,23 @@ def submit_feedback(request):
             return JsonResponse({'error': 'Invalid JSON'}, status=400)
     return JsonResponse({'error': 'Invalid method'}, status=405)
 
-@csrf_exempt
-@require_http_methods(["GET", "POST"])
-@csrf_exempt
-@require_http_methods(["GET", "POST"])
-def contact_message(request):
-    if request.method == "GET":
-        return JsonResponse({"message": "Send a POST request with name, email, and message."})
+import logging
 
-    # POST logic to handle JSON data
+logger = logging.getLogger(__name__)
+
+@api_view(['POST'])
+@csrf_exempt
+def contact_message(request):
     if request.method == "POST":
         try:
-            data = json.loads(request.body)  # Load the JSON data from the body of the request
-            name = data.get('name')
-            email = data.get('email')
-            message = data.get('message')
+            logger.info(f"Received data: {request.body}")  # Log the raw request body
+            data = json.loads(request.body)
+
+            name = data.get("name")
+            email = data.get("email")
+            message = data.get("message")
 
             if name and email and message:
-                from .models import ContactMessage
                 ContactMessage.objects.create(name=name, email=email, message=message)
                 return JsonResponse({"status": "success", "message": "Message sent successfully!"})
             else:
@@ -129,5 +128,4 @@ def contact_message(request):
 
         except json.JSONDecodeError:
             return JsonResponse({"status": "error", "message": "Invalid JSON format."}, status=400)
-
-    return JsonResponse({"status": "error", "message": "Invalid method."}, status=405)
+    return JsonResponse({"status": "error", "message": "Invalid request method."}, status=405)

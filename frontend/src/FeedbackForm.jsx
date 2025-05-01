@@ -5,6 +5,7 @@ const handleSubmit = async (e) => {
   setIsLoading(true);
   setStatus("Sending...");
 
+  // Ensure data is sent as a JSON object
   const data = {
     name: form.name,
     email: form.email,
@@ -14,10 +15,10 @@ const handleSubmit = async (e) => {
   try {
     const response = await axios.post(
       "https://diabetes-prediction-app-dm26.onrender.com/api/contact/",
-      data, // Sending the data as JSON
+      JSON.stringify(data),  // Explicitly convert to JSON string
       {
         headers: {
-          "Content-Type": "application/json", // Ensure content type is JSON
+          "Content-Type": "application/json", // Ensure the content-type is JSON
         },
       }
     );
