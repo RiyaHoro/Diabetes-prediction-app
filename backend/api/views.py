@@ -12,6 +12,8 @@ import os
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import FeedbackSerializer
+from .models import ContactMessage  
+
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'diabetes_model.pkl')
 
