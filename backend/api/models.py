@@ -37,4 +37,4 @@ class ContactMessage(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Message from {self.name} - {self.timestamp.strftime('%Y-%m-%d %H:%M')}"
+        return f"Message from {self.name} - {self.created_at.strftime('%Y-%m-%d %H:%M')}"

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import hero from "./assets/contactus.jpg";
-import Navbar from "./Navbar";
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // ✅ Added missing state
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,15 +16,21 @@ export default function ContactForm() {
     setIsLoading(true);
     setStatus("Sending...");
 
-    const formData = new FormData();
-    formData.append("name", form.name);
-    formData.append("email", form.email);
-    formData.append("message", form.message);
+    const data = {
+      name: form.name,
+      email: form.email,
+      message: form.message,
+    };
 
     try {
-      const response = await await axios.post(
+      const response = await axios.post(
         "https://diabetes-prediction-app-dm26.onrender.com/api/contact/",
-        formData
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       if (response.data.status === "success") {
