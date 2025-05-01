@@ -49,7 +49,7 @@ export default function ContactForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-cyan-400 to-teal-200 px-4">
-      <div className="bg-white rounded-xl shadow-xl flex flex-col md:flex-row w-full max-w-4xl overflow-hidden">
+      <div className="bg-white rounded-xl shadow-xl flex flex-col md:flex-row w-full max-w-4xl mt-4 overflow-hidden">
         {/* Left: Form */}
         <div className="w-full p-8 md:w-1/2">
           <h2 className="text-center font-serif text-4xl font-bold mb-6 text-blue-800">
